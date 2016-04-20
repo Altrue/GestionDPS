@@ -1,31 +1,27 @@
 package i4a.epsi.gestiondps;
 
+import android.app.DatePickerDialog;
+import android.app.Dialog;
+import android.app.DialogFragment;
+import android.app.FragmentManager;
 import android.os.Bundle;
-import android.support.design.widget.FloatingActionButton;
-import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
-import android.view.View;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
+import android.widget.DatePicker;
+import android.widget.EditText;
+
+import java.util.Calendar;
 
 public class MainMenuActivity extends AppCompatActivity {
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main_menu);
+        setContentView(R.layout.fiche_poste_form);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
-
-       FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
-        fab.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
-                        .setAction("Action", null).show();
-            }
-        });
     }
 
     @Override
@@ -48,5 +44,36 @@ public class MainMenuActivity extends AppCompatActivity {
         }
 
         return super.onOptionsItemSelected(item);
+    }
+
+    public void showDatePickerDialog(View v) {
+        FragmentManager fm = getFragmentManager();
+        DialogFragment datePickerFragment = new DatePickerFragment();
+        datePickerFragment.show(fm, "datePicker");
+    }
+
+    public static class DatePickerFragment extends DialogFragment
+            implements DatePickerDialog.OnDateSetListener {
+        EditText editHeureDebutManif;
+
+        @Override
+        public Dialog onCreateDialog(Bundle savedInstanceState) {
+            final Calendar c = Calendar.getInstance();
+            int annee = c.get(Calendar.YEAR);
+            int mois = c.get(Calendar.MONTH);
+            int jour = c.get(Calendar.DAY_OF_MONTH);
+
+            return new DatePickerDialog(getActivity(), this, annee, mois, jour);
+        }
+
+        public void onDateSet(DatePicker view, int annee, int mois, int jour) {
+            editHeureDebutManif = (EditText) getActivity().findViewById(R.id.edit_heure_debut_manif);
+            editHeureDebutManif.setText(
+                    new StringBuilder()
+                            .append(mois + 1).append("/")
+                            .append(jour).append("/")
+                            .append(annee).append("")
+            );
+        }
     }
 }
