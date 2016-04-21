@@ -5,6 +5,7 @@ import android.app.Dialog;
 import android.app.DialogFragment;
 import android.app.FragmentManager;
 import android.os.Bundle;
+import android.support.design.widget.FloatingActionButton;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
@@ -19,13 +20,12 @@ import android.widget.TextView;
 public class MainMenuActivity extends AppCompatActivity {
     private TextView activityFicheBilanTextView;
     private TextView activityMainCouranteTextView;
-    private TextView activityFichePosteTextView;
     private FloatingActionButton retourMenuFab;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.fiche_poste_form);
+        setContentView(R.layout.activity_main_menu);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
@@ -33,7 +33,6 @@ public class MainMenuActivity extends AppCompatActivity {
 
     public void displayFichePoste(View view) {
         setContentView(R.layout.activity_fiche_poste);
-        activityFichePosteTextView = (TextView)findViewById(R.id.activityFichePoste_textview);
 
         retourMenuFab = (FloatingActionButton) findViewById(R.id.activityFichePoste_fab);
         retourMenuFab.setOnClickListener(new View.OnClickListener() {
@@ -72,10 +71,6 @@ public class MainMenuActivity extends AppCompatActivity {
 
     public void actionRetourMenu(View view) {
         setContentView(R.layout.activity_main_menu);
-    }
-
-    public void actionFichePoste(View view) {
-        activityFichePosteTextView.setText("Action Fiche Poste !");
     }
 
     public void actionMainCourante(View view) {
