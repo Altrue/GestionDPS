@@ -10,8 +10,7 @@
 
     <android.support.design.widget.AppBarLayout
         android:layout_height="wrap_content"
-        android:layout_width="match_parent"
-        android:theme="@style/AppTheme.AppBarOverlay">
+        android:layout_width="match_parent">
 
         <android.support.v7.widget.Toolbar
             android:id="@+id/toolbar"
@@ -22,6 +21,18 @@
 
     </android.support.design.widget.AppBarLayout>
 
-    <include layout="@layout/content_main_menu"/>
+    <include layout="@layout/content_fiche_bilan"/>
+
+    <android.support.design.widget.FloatingActionButton
+        android:id="@+id/activityFicheBilan_fab"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="bottom|end"
+        android:layout_margin="@dimen/fab_margin"
+        android:src="@android:drawable/ic_menu_revert"
+        android:tint="#ffffff"
+        android:cropToPadding="false"
+        android:theme="@style/Base.V7.Theme.AppCompat.Light.Dialog"
+        android:onClick="actionRetourMenu" />
 
 </android.support.design.widget.CoordinatorLayout>

@@ -8,8 +8,13 @@ import android.support.v7.widget.Toolbar;
 import android.view.View;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.widget.TextView;
 
 public class MainMenuActivity extends AppCompatActivity {
+    private TextView activityFicheBilanTextView;
+    private TextView activityMainCouranteTextView;
+    private TextView activityFichePosteTextView;
+    private FloatingActionButton retourMenuFab;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -18,14 +23,61 @@ public class MainMenuActivity extends AppCompatActivity {
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
-       FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
-        fab.setOnClickListener(new View.OnClickListener() {
+    }
+
+    public void displayFichePoste(View view) {
+        setContentView(R.layout.activity_fiche_poste);
+        activityFichePosteTextView = (TextView)findViewById(R.id.activityFichePoste_textview);
+
+        retourMenuFab = (FloatingActionButton) findViewById(R.id.activityFichePoste_fab);
+        retourMenuFab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
-                        .setAction("Action", null).show();
+                actionRetourMenu(view);
             }
         });
+    }
+
+    public void displayMainCourante(View view) {
+        setContentView(R.layout.activity_main_courante);
+        activityMainCouranteTextView = (TextView)findViewById(R.id.activityMainCourante_textview);
+
+        retourMenuFab = (FloatingActionButton) findViewById(R.id.activityMainCourante_fab);
+        retourMenuFab.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                actionRetourMenu(view);
+            }
+        });
+    }
+
+    public void displayFicheBilan(View view) {
+        setContentView(R.layout.activity_fiche_bilan);
+        activityFicheBilanTextView = (TextView)findViewById(R.id.activityFicheBilan_textview);
+
+        retourMenuFab = (FloatingActionButton) findViewById(R.id.activityFicheBilan_fab);
+        retourMenuFab.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                actionRetourMenu(view);
+            }
+        });
+    }
+
+    public void actionRetourMenu(View view) {
+        setContentView(R.layout.activity_main_menu);
+    }
+
+    public void actionFichePoste(View view) {
+        activityFichePosteTextView.setText("Action Fiche Poste !");
+    }
+
+    public void actionMainCourante(View view) {
+        activityMainCouranteTextView.setText("Action Main Courante !");
+    }
+
+    public void actionFicheBilan(View view) {
+        activityFicheBilanTextView.setText("Action Fiche Bilan !");
     }
 
     @Override

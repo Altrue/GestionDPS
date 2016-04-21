@@ -10,42 +10,24 @@
     android:paddingTop="@dimen/activity_vertical_margin"
     android:paddingBottom="@dimen/activity_vertical_margin"
     app:layout_behavior="@string/appbar_scrolling_view_behavior"
-    tools:showIn="@layout/activity_main_menu"
+    tools:showIn="@layout/activity_main_courante"
     tools:context="i4a.epsi.gestiondps.MainMenuActivity"
     android:weightSum="1"
     android:orientation="vertical">
 
     <TextView
-        android:id="@+id/mainMenuTitre_textview"
-        android:text="Gestion DPS"
+        android:id="@+id/activityMainCourante_textview"
+        android:text="CECI EST LA MAIN COURANTE"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:textAlignment="center"/>
 
     <Button
-        android:id="@+id/mainMenuFichePoste_button"
+        android:id="@+id/activityMainCourante_button"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="20dp"
         android:layout_marginLeft="20dp"
-        android:text="Fiche Poste"
-        android:onClick="displayFichePoste"/>
-
-    <Button
-        android:id="@+id/mainMenuMainCourante_button"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="20dp"
-        android:layout_marginLeft="20dp"
-        android:text="Main Courante"
-        android:onClick="displayMainCourante"/>
-
-    <Button
-        android:id="@+id/mainMenuFicheBilan_button"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="20dp"
-        android:layout_marginLeft="20dp"
-        android:text="Fiche Bilan"
-        android:onClick="displayFicheBilan"/>
+        android:text="Action Main Courante"
+        android:onClick="actionMainCourante"/>
 </LinearLayout>
