@@ -124,7 +124,7 @@ public class MainMenuActivity extends AppCompatActivity {
         }
 
         public void onDateSet(DatePicker view, int annee, int mois, int jour) {
-            editHeureDebutManif = (EditText) getActivity().findViewById(R.id.edit_heure_debut_manif);
+            editHeureDebutManif = (EditText) getActivity().findViewById(R.id.activityFichePoste_heureDebutManif_editText);
             editHeureDebutManif.setText(
                     new StringBuilder()
                             .append(mois + 1).append("/")
