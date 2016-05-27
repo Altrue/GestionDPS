@@ -43,7 +43,7 @@
             <EditText
                 android:id="@+id/activityFichePoste_nomDispositif_editText"
                 android:layout_height="wrap_content"
-                android:inputType="textPersonName"
+                android:inputType="textCapSentences"
                 android:layout_width="fill_parent">
             </EditText>
 
@@ -73,6 +73,104 @@
                 android:id="@+id/activityFichePoste_heureFinManif_editText"
                 android:layout_height="wrap_content"
                 android:inputType="textPersonName"
+                android:layout_width="fill_parent">
+            </EditText>
+
+            <TextView
+                android:id="@+id/activityFichePoste_lieu_textView"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Lieu :"
+                android:textSize="10pt">
+            </TextView>
+            <EditText
+                android:id="@+id/activityFichePoste_lieu_editText"
+                android:layout_height="wrap_content"
+                android:inputType="textCapSentences"
+                android:layout_width="fill_parent">
+            </EditText>
+
+            <TextView
+                android:id="@+id/activityFichePoste_nature_textView"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Nature :"
+                android:textSize="10pt">
+            </TextView>
+            <EditText
+                android:id="@+id/activityFichePoste_nature_editText"
+                android:layout_height="wrap_content"
+                android:inputType="textCapSentences"
+                android:layout_width="fill_parent">
+            </EditText>
+
+            <TextView
+                android:id="@+id/activityFichePoste_effectif_textView"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Effectif :"
+                android:textSize="10pt">
+            </TextView>
+            <EditText
+                android:id="@+id/activityFichePoste_effectif_editText"
+                android:layout_height="wrap_content"
+                android:inputType="number"
+                android:layout_width="fill_parent">
+            </EditText>
+
+            <TextView
+                android:id="@+id/activityFichePoste_nbSecouristes_textView"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Nombre de secouristes :"
+                android:textSize="10pt">
+            </TextView>
+            <EditText
+                android:id="@+id/activityFichePoste_nbSecouristes_editText"
+                android:layout_height="wrap_content"
+                android:inputType="number"
+                android:layout_width="fill_parent">
+            </EditText>
+
+            <TextView
+                android:id="@+id/activityFichePoste_heureOuverture_textView"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Heure d'ouverture du poste :"
+                android:textSize="10pt">
+            </TextView>
+            <EditText
+                android:id="@+id/activityFichePoste_heureOuverture_editText"
+                android:layout_height="wrap_content"
+                android:inputType="time"
+                android:layout_width="fill_parent">
+            </EditText>
+
+            <TextView
+                android:id="@+id/activityFichePoste_heureFermeture_textView"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Heure de fermeture du poste :"
+                android:textSize="10pt">
+            </TextView>
+            <EditText
+                android:id="@+id/activityFichePoste_heureFermeture_editText"
+                android:layout_height="wrap_content"
+                android:inputType="time"
+                android:layout_width="fill_parent">
+            </EditText>
+
+            <TextView
+                android:id="@+id/activityFichePoste_remarques_textView"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Remarques:"
+                android:textSize="10pt">
+            </TextView>
+            <EditText
+                android:id="@+id/activityFichePoste_remarques_editText"
+                android:layout_height="wrap_content"
+                android:inputType="textMultiLine|textCapSentences"
                 android:layout_width="fill_parent">
             </EditText>
 
