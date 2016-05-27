@@ -4,10 +4,12 @@ import android.app.DatePickerDialog;
 import android.app.Dialog;
 import android.app.DialogFragment;
 import android.app.FragmentManager;
+import android.app.TimePickerDialog;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.text.format.DateFormat;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -16,6 +18,7 @@ import android.widget.EditText;
 
 import java.util.Calendar;
 import android.widget.TextView;
+import android.widget.TimePicker;
 
 public class MainMenuActivity extends AppCompatActivity {
     private TextView activityFicheBilanTextView;
@@ -103,13 +106,13 @@ public class MainMenuActivity extends AppCompatActivity {
         return super.onOptionsItemSelected(item);
     }
 
-    public void showDatePickerDialog(View v) {
+    public void showDateTimeDebutPickerDialog(View v) {
         FragmentManager fm = getFragmentManager();
-        DialogFragment datePickerFragment = new DatePickerFragment();
-        datePickerFragment.show(fm, "datePicker");
+        DialogFragment datePickerDebutFragment = new DatePickerDebutFragment();
+        datePickerDebutFragment.show(fm, "datePicker");
     }
 
-    public static class DatePickerFragment extends DialogFragment
+    public static class DatePickerDebutFragment extends DialogFragment
             implements DatePickerDialog.OnDateSetListener {
         EditText editHeureDebutManif;
 
@@ -127,9 +130,94 @@ public class MainMenuActivity extends AppCompatActivity {
             editHeureDebutManif = (EditText) getActivity().findViewById(R.id.activityFichePoste_heureDebutManif_editText);
             editHeureDebutManif.setText(
                     new StringBuilder()
-                            .append(mois + 1).append("/")
                             .append(jour).append("/")
-                            .append(annee).append("")
+                            .append(mois + 1).append("/")
+                            .append(annee).append(" ")
+            );
+
+            FragmentManager fm = getFragmentManager();
+            DialogFragment timePickerDebutFragment = new TimePickerDebutFragment();
+            timePickerDebutFragment.show(fm, "timePicker");
+        }
+    }
+
+    public static class TimePickerDebutFragment extends DialogFragment
+            implements TimePickerDialog.OnTimeSetListener {
+        EditText editHeureDebutManif;
+
+        @Override
+        public Dialog onCreateDialog(Bundle savedInstanceState) {
+            final Calendar c = Calendar.getInstance();
+            int heure = c.get(Calendar.HOUR_OF_DAY);
+            int minute = c.get(Calendar.MINUTE);
+
+            return new TimePickerDialog(getActivity(), this, heure, minute, DateFormat.is24HourFormat(getActivity()));
+        }
+
+        public void onTimeSet(TimePicker view, int heure, int minute) {
+            editHeureDebutManif = (EditText) getActivity().findViewById(R.id.activityFichePoste_heureDebutManif_editText);
+            editHeureDebutManif.append(
+                    new StringBuilder()
+                            .append(heure).append(":")
+                            .append(minute).append("")
+            );
+        }
+    }
+
+    public void showDateTimeFinPickerDialog(View v) {
+        FragmentManager fm = getFragmentManager();
+        DialogFragment datePickerFinFragment = new DatePickerFinFragment();
+        datePickerFinFragment.show(fm, "datePicker");
+    }
+
+    public static class DatePickerFinFragment extends DialogFragment
+            implements DatePickerDialog.OnDateSetListener {
+        EditText editHeureFinManif;
+
+        @Override
+        public Dialog onCreateDialog(Bundle savedInstanceState) {
+            final Calendar c = Calendar.getInstance();
+            int annee = c.get(Calendar.YEAR);
+            int mois = c.get(Calendar.MONTH);
+            int jour = c.get(Calendar.DAY_OF_MONTH);
+
+            return new DatePickerDialog(getActivity(), this, annee, mois, jour);
+        }
+
+        public void onDateSet(DatePicker view, int annee, int mois, int jour) {
+            editHeureFinManif = (EditText) getActivity().findViewById(R.id.activityFichePoste_heureFinManif_editText);
+            editHeureFinManif.setText(
+                    new StringBuilder()
+                            .append(jour).append("/")
+                            .append(mois + 1).append("/")
+                            .append(annee).append(" ")
+            );
+
+            FragmentManager fm = getFragmentManager();
+            DialogFragment timePickerFragment = new TimePickerFragment();
+            timePickerFragment.show(fm, "timePicker");
+        }
+    }
+
+    public static class TimePickerFragment extends DialogFragment
+            implements TimePickerDialog.OnTimeSetListener {
+        EditText editHeureFinManif;
+
+        @Override
+        public Dialog onCreateDialog(Bundle savedInstanceState) {
+            final Calendar c = Calendar.getInstance();
+            int heure = c.get(Calendar.HOUR_OF_DAY);
+            int minute = c.get(Calendar.MINUTE);
+
+            return new TimePickerDialog(getActivity(), this, heure, minute, DateFormat.is24HourFormat(getActivity()));
+        }
+
+        public void onTimeSet(TimePicker view, int heure, int minute) {
+            editHeureFinManif = (EditText) getActivity().findViewById(R.id.activityFichePoste_heureFinManif_editText);
+            editHeureFinManif.append(
+                    new StringBuilder()
+                            .append(heure).append(":")
+                            .append(minute).append("")
             );
         }
     }

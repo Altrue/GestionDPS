@@ -51,29 +51,30 @@
                 android:id="@+id/activityFichePoste_heureDebutManif_textView"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Heure de début de la manifestation :"
+                android:text="Début de la manifestation :"
                 android:textSize="10pt">
             </TextView>
             <EditText
                 android:id="@+id/activityFichePoste_heureDebutManif_editText"
                 android:layout_height="wrap_content"
-                android:inputType="textPersonName"
                 android:layout_width="fill_parent"
-                android:onClick="showDatePickerDialog">
+                android:onClick="showDateTimeDebutPickerDialog"
+                android:focusable="false">
             </EditText>
 
             <TextView
                 android:id="@+id/activityFichePoste_heureFinManif_textView"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Heure de fin de la manifestation :"
+                android:text="Fin de la manifestation :"
                 android:textSize="10pt">
             </TextView>
             <EditText
                 android:id="@+id/activityFichePoste_heureFinManif_editText"
                 android:layout_height="wrap_content"
-                android:inputType="textPersonName"
-                android:layout_width="fill_parent">
+                android:onClick="showDateTimeFinPickerDialog"
+                android:layout_width="fill_parent"
+                android:focusable="false">
             </EditText>
 
             <TextView
