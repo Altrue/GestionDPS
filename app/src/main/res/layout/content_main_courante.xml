@@ -30,4 +30,135 @@
         android:layout_marginLeft="20dp"
         android:text="Action Main Courante"
         android:onClick="actionMainCourante"/>
+
+    <TextView
+        android:id="@+id/activityMainCourante_heureEntree_textView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Heure d'entrée :"
+        android:textSize="10pt">
+    </TextView>
+    <EditText
+        android:id="@+id/activityMainCourante_heureEntree_editText"
+        android:layout_height="wrap_content"
+        android:inputType="time"
+        android:layout_width="fill_parent">
+    </EditText>
+
+    <TextView
+        android:id="@+id/activityMainCourante_heureSortie_textView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Heure de sortie :"
+        android:textSize="10pt">
+    </TextView>
+    <EditText
+        android:id="@+id/activityMainCourante_heureSortie_editText"
+        android:layout_height="wrap_content"
+        android:inputType="time"
+        android:layout_width="fill_parent">
+    </EditText>
+
+    <TextView
+        android:id="@+id/activityMainCourante_prenom_textView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Prénom :"
+        android:textSize="10pt">
+    </TextView>
+    <EditText
+        android:id="@+id/activityMainCourante_prenom_editText"
+        android:layout_height="wrap_content"
+        android:inputType="textCapWords"
+        android:layout_width="fill_parent">
+    </EditText>
+
+    <TextView
+        android:id="@+id/activityMainCourante_nom_textView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Nom :"
+        android:textSize="10pt">
+    </TextView>
+    <EditText
+        android:id="@+id/activityMainCourante_nom_editText"
+        android:layout_height="wrap_content"
+        android:inputType="textCapCharacters"
+        android:layout_width="fill_parent">
+    </EditText>
+
+    <!-- TODO : Sexe picker -->
+    <TextView
+        android:id="@+id/activityMainCourante_sexePicker_textView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Sexe :"
+        android:textSize="10pt">
+    </TextView>
+    <EditText
+        android:id="@+id/activityMainCourante_sexePicker_editText"
+        android:layout_height="wrap_content"
+        android:inputType="textCapSentences"
+        android:layout_width="fill_parent">
+    </EditText>
+
+    <!-- Fin todo -->
+
+    <TextView
+        android:id="@+id/activityMainCourante_age_textView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Âge :"
+        android:textSize="10pt">
+    </TextView>
+    <EditText
+        android:id="@+id/activityMainCourante_age_editText"
+        android:layout_height="wrap_content"
+        android:inputType="number"
+        android:layout_width="fill_parent">
+    </EditText>
+
+    <TextView
+        android:id="@+id/activityMainCourante_motif_textView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Motif :"
+        android:textSize="10pt">
+    </TextView>
+    <EditText
+        android:id="@+id/activityMainCourante_motif_editText"
+        android:layout_height="wrap_content"
+        android:inputType="textCapSentences"
+        android:layout_width="fill_parent">
+    </EditText>
+
+    <TextView
+        android:id="@+id/activityMainCourante_soins_textView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Soins :"
+        android:textSize="10pt">
+    </TextView>
+    <EditText
+        android:id="@+id/activityMainCourante_soins_editText"
+        android:layout_height="wrap_content"
+        android:inputType="textCapSentences|textMultiLine"
+        android:layout_width="fill_parent">
+    </EditText>
+
+    <TextView
+        android:id="@+id/activityMainCourante_remarques_textView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Remarques :"
+        android:textSize="10pt">
+    </TextView>
+    <EditText
+        android:id="@+id/activityMainCourante_remarques_editText"
+        android:layout_height="wrap_content"
+        android:inputType="textCapSentences|textMultiLine"
+        android:layout_width="fill_parent">
+    </EditText>
+
+
 </LinearLayout>
