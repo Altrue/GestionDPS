@@ -144,6 +144,7 @@
                 android:id="@+id/activityFichePoste_heureOuverture_editText"
                 android:layout_height="wrap_content"
                 android:inputType="time"
+                android:onClick="showTimeDebutPostePickerDialog"
                 android:layout_width="fill_parent">
             </EditText>
 
@@ -158,6 +159,7 @@
                 android:id="@+id/activityFichePoste_heureFermeture_editText"
                 android:layout_height="wrap_content"
                 android:inputType="time"
+                android:onClick="showTimeFinPostePickerDialog"
                 android:layout_width="fill_parent">
             </EditText>
 

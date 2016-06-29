@@ -194,12 +194,12 @@ public class MainMenuActivity extends AppCompatActivity {
             );
 
             FragmentManager fm = getFragmentManager();
-            DialogFragment timePickerFragment = new TimePickerFragment();
-            timePickerFragment.show(fm, "timePicker");
+            DialogFragment timePickerFinFragment = new TimePickerFinFragment();
+            timePickerFinFragment.show(fm, "timePicker");
         }
     }
 
-    public static class TimePickerFragment extends DialogFragment
+    public static class TimePickerFinFragment extends DialogFragment
             implements TimePickerDialog.OnTimeSetListener {
         EditText editHeureFinManif;
 
@@ -220,5 +220,63 @@ public class MainMenuActivity extends AppCompatActivity {
                             .append(minute).append("")
             );
         }
+    }
+
+    public static class TimePickerDebutPosteFragment extends DialogFragment
+            implements TimePickerDialog.OnTimeSetListener {
+        EditText editHeureDebutPoste;
+
+        @Override
+        public Dialog onCreateDialog(Bundle savedInstanceState) {
+            final Calendar c = Calendar.getInstance();
+            int heure = c.get(Calendar.HOUR_OF_DAY);
+            int minute = c.get(Calendar.MINUTE);
+
+            return new TimePickerDialog(getActivity(), this, heure, minute, DateFormat.is24HourFormat(getActivity()));
+        }
+
+        public void onTimeSet(TimePicker view, int heure, int minute) {
+            editHeureDebutPoste = (EditText) getActivity().findViewById(R.id.activityFichePoste_heureOuverture_editText);
+            editHeureDebutPoste.append(
+                    new StringBuilder()
+                            .append(heure).append(":")
+                            .append(minute).append("")
+            );
+        }
+    }
+
+    public void showTimeDebutPostePickerDialog(View v) {
+        FragmentManager fm = getFragmentManager();
+        DialogFragment timePickerDebutPosteFragment = new TimePickerDebutPosteFragment();
+        timePickerDebutPosteFragment.show(fm, "timePicker");
+    }
+
+    public static class TimePickerFinPosteFragment extends DialogFragment
+            implements TimePickerDialog.OnTimeSetListener {
+        EditText editHeureFinPoste;
+
+        @Override
+        public Dialog onCreateDialog(Bundle savedInstanceState) {
+            final Calendar c = Calendar.getInstance();
+            int heure = c.get(Calendar.HOUR_OF_DAY);
+            int minute = c.get(Calendar.MINUTE);
+
+            return new TimePickerDialog(getActivity(), this, heure, minute, DateFormat.is24HourFormat(getActivity()));
+        }
+
+        public void onTimeSet(TimePicker view, int heure, int minute) {
+            editHeureFinPoste = (EditText) getActivity().findViewById(R.id.activityFichePoste_heureFermeture_editText);
+            editHeureFinPoste.append(
+                    new StringBuilder()
+                            .append(heure).append(":")
+                            .append(minute).append("")
+            );
+        }
+    }
+
+    public void showTimeFinPostePickerDialog(View v) {
+        FragmentManager fm = getFragmentManager();
+        DialogFragment timePickerFinPosteFragment = new TimePickerFinPosteFragment();
+        timePickerFinPosteFragment.show(fm, "timePicker");
     }
 }
