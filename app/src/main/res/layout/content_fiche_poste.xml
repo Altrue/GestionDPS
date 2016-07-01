@@ -48,6 +48,36 @@
                 android:textIsSelectable="false"
                 android:layout_marginBottom="10dp" />
 
+        <LinearLayout
+            android:layout_width="fill_parent"
+            android:orientation="horizontal"
+            android:layout_height="wrap_content"
+            android:paddingBottom="10dp">
+
+            <Button
+                android:id="@+id/activityFicheBilan_button"
+                android:layout_height="wrap_content"
+                android:text="Sauvegarder"
+                android:background="@color/colorSauvegarderBackground"
+                android:layout_width="fill_parent"
+                android:textColor="@color/colorSauvegarderText"
+                android:textSize="18dp"
+                android:layout_weight="1"
+                android:layout_marginRight="5dp" />
+
+            <Button
+                android:id="@+id/activityFicheBilan_button2"
+                android:layout_height="wrap_content"
+                android:text="Charger"
+                android:background="@color/colorChargerBackground"
+                android:layout_width="fill_parent"
+                android:textColor="@color/colorChargerText"
+                android:textSize="18dp"
+                android:layout_weight="1"
+                android:layout_marginLeft="5dp" />
+
+        </LinearLayout>
+
             <TextView
                 android:id="@+id/activityFichePoste_nomDispositif_textView"
                 android:layout_width="wrap_content"
