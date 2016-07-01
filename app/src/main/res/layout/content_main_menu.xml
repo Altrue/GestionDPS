@@ -13,39 +13,54 @@
     tools:showIn="@layout/activity_main_menu"
     tools:context="i4a.epsi.gestiondps.MainMenuActivity"
     android:weightSum="1"
-    android:orientation="vertical">
+    android:orientation="vertical"
+    android:textAlignment="center"
+    android:background="@color/colorPrimaryBackground">
 
     <TextView
-        android:id="@+id/mainMenuTitre_textview"
-        android:text="Gestion DPS"
-        android:layout_width="match_parent"
+        android:id="@+id/mainMenuTitre_textview1"
+        android:text="GESTION DPS"
+        android:layout_width="fill_parent"
         android:layout_height="wrap_content"
-        android:textAlignment="center"/>
+        android:gravity="center"
+        android:textStyle="bold"
+        android:textSize="25dp"
+        android:textIsSelectable="false"
+        android:textColor="@color/colorAccent" />
+
+    <TextView
+        android:id="@+id/mainMenuTitre_textview2"
+        android:text="MENU PRINCIPAL"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:textSize="20dp"
+        android:textIsSelectable="false" />
 
     <Button
         android:id="@+id/mainMenuFichePoste_button"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="20dp"
-        android:layout_marginLeft="20dp"
         android:text="Fiche Poste"
-        android:onClick="displayFichePoste"/>
+        android:onClick="displayFichePoste"
+        android:background="@color/colorPrimaryButton" />
 
     <Button
         android:id="@+id/mainMenuMainCourante_button"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="20dp"
-        android:layout_marginLeft="20dp"
         android:text="Main Courante"
-        android:onClick="displayMainCourante"/>
+        android:onClick="displayMainCourante"
+        android:background="@color/colorPrimaryButton" />
 
     <Button
         android:id="@+id/mainMenuFicheBilan_button"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="20dp"
-        android:layout_marginLeft="20dp"
         android:text="Fiche Bilan"
-        android:onClick="displayFicheBilan"/>
+        android:onClick="displayFicheBilan"
+        android:background="@color/colorPrimaryButton" />
 </LinearLayout>

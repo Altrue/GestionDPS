@@ -13,23 +13,37 @@
     tools:showIn="@layout/activity_main_courante"
     tools:context="i4a.epsi.gestiondps.MainMenuActivity"
     android:weightSum="1"
-    android:orientation="vertical">
+    android:orientation="vertical"
+    android:background="@color/colorPrimaryBackground">
 
     <TextView
-        android:id="@+id/activityMainCourante_textview"
-        android:text="CECI EST LA MAIN COURANTE"
-        android:layout_width="match_parent"
+        android:id="@+id/mainCourante_textview1"
+        android:text="GESTION DPS"
+        android:layout_width="fill_parent"
         android:layout_height="wrap_content"
-        android:textAlignment="center"/>
+        android:gravity="center"
+        android:textStyle="bold"
+        android:textSize="25dp"
+        android:textIsSelectable="false"
+        android:textColor="@color/colorAccent" />
+
+    <TextView
+        android:id="@+id/mainCouranteTitre_textview2"
+        android:text="MAIN COURANTE"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:textSize="20dp"
+        android:textIsSelectable="false"
+        android:layout_marginBottom="10dp" />
 
     <Button
         android:id="@+id/activityMainCourante_button"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="20dp"
-        android:layout_marginLeft="20dp"
-        android:text="Action Main Courante"
-        android:onClick="actionMainCourante"/>
+        android:text="Action Main Courante (inactif)"
+        android:background="@color/colorPrimaryButton" />
 
     <TextView
         android:id="@+id/activityMainCourante_heureEntree_textView"
@@ -38,11 +52,15 @@
         android:text="Heure d'entrée :"
         android:textSize="10pt">
     </TextView>
+
     <EditText
         android:id="@+id/activityMainCourante_heureEntree_editText"
+        android:tag="activityMainCourante_heureEntree_editText"
         android:layout_height="wrap_content"
-        android:inputType="time"
-        android:layout_width="fill_parent">
+        android:layout_width="fill_parent"
+        android:onClick="showTimePickerDialog"
+        android:focusable="false"
+        android:theme="@style/AppTheme.PopupOverlay">
     </EditText>
 
     <TextView
@@ -54,9 +72,12 @@
     </TextView>
     <EditText
         android:id="@+id/activityMainCourante_heureSortie_editText"
+        android:tag="activityMainCourante_heureSortie_editText"
         android:layout_height="wrap_content"
-        android:inputType="time"
-        android:layout_width="fill_parent">
+        android:layout_width="fill_parent"
+        android:onClick="showTimePickerDialog"
+        android:focusable="false"
+        android:theme="@style/AppTheme.PopupOverlay">
     </EditText>
 
     <TextView
@@ -70,7 +91,8 @@
         android:id="@+id/activityMainCourante_prenom_editText"
         android:layout_height="wrap_content"
         android:inputType="textCapWords"
-        android:layout_width="fill_parent">
+        android:layout_width="fill_parent"
+        android:theme="@style/AppTheme.PopupOverlay">
     </EditText>
 
     <TextView
@@ -84,7 +106,8 @@
         android:id="@+id/activityMainCourante_nom_editText"
         android:layout_height="wrap_content"
         android:inputType="textCapCharacters"
-        android:layout_width="fill_parent">
+        android:layout_width="fill_parent"
+        android:theme="@style/AppTheme.PopupOverlay">
     </EditText>
 
     <!-- TODO : Sexe picker -->
@@ -99,7 +122,8 @@
         android:id="@+id/activityMainCourante_sexePicker_editText"
         android:layout_height="wrap_content"
         android:inputType="textCapSentences"
-        android:layout_width="fill_parent">
+        android:layout_width="fill_parent"
+        android:theme="@style/AppTheme.PopupOverlay">
     </EditText>
 
     <!-- Fin todo -->
@@ -115,7 +139,8 @@
         android:id="@+id/activityMainCourante_age_editText"
         android:layout_height="wrap_content"
         android:inputType="number"
-        android:layout_width="fill_parent">
+        android:layout_width="fill_parent"
+        android:theme="@style/AppTheme.PopupOverlay">
     </EditText>
 
     <TextView
@@ -129,7 +154,8 @@
         android:id="@+id/activityMainCourante_motif_editText"
         android:layout_height="wrap_content"
         android:inputType="textCapSentences"
-        android:layout_width="fill_parent">
+        android:layout_width="fill_parent"
+        android:theme="@style/AppTheme.PopupOverlay">
     </EditText>
 
     <TextView
@@ -143,7 +169,8 @@
         android:id="@+id/activityMainCourante_soins_editText"
         android:layout_height="wrap_content"
         android:inputType="textCapSentences|textMultiLine"
-        android:layout_width="fill_parent">
+        android:layout_width="fill_parent"
+        android:theme="@style/AppTheme.PopupOverlay">
     </EditText>
 
     <TextView
@@ -157,7 +184,8 @@
         android:id="@+id/activityMainCourante_remarques_editText"
         android:layout_height="wrap_content"
         android:inputType="textCapSentences|textMultiLine"
-        android:layout_width="fill_parent">
+        android:layout_width="fill_parent"
+        android:theme="@style/AppTheme.PopupOverlay">
     </EditText>
 
 

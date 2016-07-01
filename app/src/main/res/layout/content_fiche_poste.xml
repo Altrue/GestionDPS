@@ -13,25 +13,40 @@
     tools:showIn="@layout/activity_fiche_poste"
     tools:context="i4a.epsi.gestiondps.MainMenuActivity"
     android:weightSum="1"
-    android:orientation="vertical">
-
-    <TextView
-        android:id="@+id/activityFichePoste_textview"
-        android:text="CECI EST LA FICHE POSTE"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:textAlignment="center"/>
+    android:orientation="vertical"
+    android:background="@color/colorPrimaryBackground">
 
     <ScrollView
         xmlns:android="http://schemas.android.com/apk/res/android"
         android:id="@+id/ScrollView01"
-        android:layout_width="wrap_content"
+        android:layout_width="fill_parent"
         android:layout_height="wrap_content"
         android:scrollbars="vertical">
         <LinearLayout
             android:layout_width="fill_parent"
             android:orientation="vertical"
             android:layout_height="wrap_content">
+
+            <TextView
+                android:id="@+id/fichePoste_textview1"
+                android:text="GESTION DPS"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:textStyle="bold"
+                android:textSize="25dp"
+                android:textIsSelectable="false"
+                android:textColor="@color/colorAccent" />
+
+            <TextView
+                android:id="@+id/fichePosteTitre_textview2"
+                android:text="FICHE POSTE"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:textSize="20dp"
+                android:textIsSelectable="false"
+                android:layout_marginBottom="10dp" />
 
             <TextView
                 android:id="@+id/activityFichePoste_nomDispositif_textView"
@@ -44,7 +59,8 @@
                 android:id="@+id/activityFichePoste_nomDispositif_editText"
                 android:layout_height="wrap_content"
                 android:inputType="textCapSentences"
-                android:layout_width="fill_parent">
+                android:layout_width="fill_parent"
+                android:theme="@style/AppTheme.PopupOverlay">
             </EditText>
 
             <TextView
@@ -56,10 +72,12 @@
             </TextView>
             <EditText
                 android:id="@+id/activityFichePoste_heureDebutManif_editText"
+                android:tag="activityFichePoste_heureDebutManif_editText"
                 android:layout_height="wrap_content"
                 android:layout_width="fill_parent"
-                android:onClick="showDateTimeDebutPickerDialog"
-                android:focusable="false">
+                android:onClick="showDateTimePickerDialog"
+                android:focusable="false"
+                android:theme="@style/AppTheme.PopupOverlay">
             </EditText>
 
             <TextView
@@ -71,10 +89,12 @@
             </TextView>
             <EditText
                 android:id="@+id/activityFichePoste_heureFinManif_editText"
+                android:tag="activityFichePoste_heureFinManif_editText"
                 android:layout_height="wrap_content"
-                android:onClick="showDateTimeFinPickerDialog"
+                android:onClick="showDateTimePickerDialog"
                 android:layout_width="fill_parent"
-                android:focusable="false">
+                android:focusable="false"
+                android:theme="@style/AppTheme.PopupOverlay">
             </EditText>
 
             <TextView
@@ -88,7 +108,8 @@
                 android:id="@+id/activityFichePoste_lieu_editText"
                 android:layout_height="wrap_content"
                 android:inputType="textCapSentences"
-                android:layout_width="fill_parent">
+                android:layout_width="fill_parent"
+                android:theme="@style/AppTheme.PopupOverlay">
             </EditText>
 
             <TextView
@@ -102,7 +123,8 @@
                 android:id="@+id/activityFichePoste_nature_editText"
                 android:layout_height="wrap_content"
                 android:inputType="textCapSentences"
-                android:layout_width="fill_parent">
+                android:layout_width="fill_parent"
+                android:theme="@style/AppTheme.PopupOverlay">
             </EditText>
 
             <TextView
@@ -116,7 +138,8 @@
                 android:id="@+id/activityFichePoste_effectif_editText"
                 android:layout_height="wrap_content"
                 android:inputType="number"
-                android:layout_width="fill_parent">
+                android:layout_width="fill_parent"
+                android:theme="@style/AppTheme.PopupOverlay">
             </EditText>
 
             <TextView
@@ -130,7 +153,8 @@
                 android:id="@+id/activityFichePoste_nbSecouristes_editText"
                 android:layout_height="wrap_content"
                 android:inputType="number"
-                android:layout_width="fill_parent">
+                android:layout_width="fill_parent"
+                android:theme="@style/AppTheme.PopupOverlay">
             </EditText>
 
             <TextView
@@ -140,12 +164,15 @@
                 android:text="Heure d'ouverture du poste :"
                 android:textSize="10pt">
             </TextView>
+
             <EditText
                 android:id="@+id/activityFichePoste_heureOuverture_editText"
+                android:tag="activityFichePoste_heureOuverture_editText"
                 android:layout_height="wrap_content"
-                android:inputType="time"
-                android:onClick="showTimeDebutPostePickerDialog"
-                android:layout_width="fill_parent">
+                android:onClick="showTimePickerDialog"
+                android:focusable="false"
+                android:layout_width="fill_parent"
+                android:theme="@style/AppTheme.PopupOverlay">
             </EditText>
 
             <TextView
@@ -157,10 +184,12 @@
             </TextView>
             <EditText
                 android:id="@+id/activityFichePoste_heureFermeture_editText"
+                android:tag="activityFichePoste_heureFermeture_editText"
                 android:layout_height="wrap_content"
-                android:inputType="time"
-                android:onClick="showTimeFinPostePickerDialog"
-                android:layout_width="fill_parent">
+                android:onClick="showTimePickerDialog"
+                android:focusable="false"
+                android:layout_width="fill_parent"
+                android:theme="@style/AppTheme.PopupOverlay">
             </EditText>
 
             <TextView
@@ -174,7 +203,8 @@
                 android:id="@+id/activityFichePoste_remarques_editText"
                 android:layout_height="wrap_content"
                 android:inputType="textMultiLine|textCapSentences"
-                android:layout_width="fill_parent">
+                android:layout_width="fill_parent"
+                android:theme="@style/AppTheme.PopupOverlay">
             </EditText>
 
         </LinearLayout>

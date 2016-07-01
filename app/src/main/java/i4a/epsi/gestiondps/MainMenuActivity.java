@@ -8,7 +8,6 @@ import android.app.TimePickerDialog;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v7.app.AppCompatActivity;
-import android.support.v7.widget.Toolbar;
 import android.text.format.DateFormat;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -17,23 +16,28 @@ import android.widget.DatePicker;
 import android.widget.EditText;
 
 import java.util.Calendar;
+import java.util.Vector;
+
 import android.widget.TextView;
 import android.widget.TimePicker;
 
 public class MainMenuActivity extends AppCompatActivity {
-    private TextView activityFicheBilanTextView;
-    private TextView activityMainCouranteTextView;
+
+    //Désactivé car utilisé précédemment en tant que texte random à modifier pour des tests.
+    //private TextView activityFicheBilanTextView;
+    //private TextView activityMainCouranteTextView;
+
     private FloatingActionButton retourMenuFab;
+    private Vector<DialogFragment> dialogFragments = new Vector<DialogFragment>(); // Pas utilisé pour le moment
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main_menu);
-        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
-        setSupportActionBar(toolbar);
 
     }
 
+    // Fonctions display
     public void displayFichePoste(View view) {
         setContentView(R.layout.activity_fiche_poste);
 
@@ -48,7 +52,8 @@ public class MainMenuActivity extends AppCompatActivity {
 
     public void displayMainCourante(View view) {
         setContentView(R.layout.activity_main_courante);
-        activityMainCouranteTextView = (TextView)findViewById(R.id.activityMainCourante_textview);
+        //Désactivé car utilisé précédemment en tant que texte random à modifier pour des tests.
+        //activityMainCouranteTextView = (TextView)findViewById(R.id.activityMainCourante_textview);
 
         retourMenuFab = (FloatingActionButton) findViewById(R.id.activityMainCourante_fab);
         retourMenuFab.setOnClickListener(new View.OnClickListener() {
@@ -61,7 +66,8 @@ public class MainMenuActivity extends AppCompatActivity {
 
     public void displayFicheBilan(View view) {
         setContentView(R.layout.activity_fiche_bilan);
-        activityFicheBilanTextView = (TextView)findViewById(R.id.activityFicheBilan_textview);
+        //Désactivé car utilisé précédemment en tant que texte random à modifier pour des tests.
+        //activityFicheBilanTextView = (TextView)findViewById(R.id.activityFicheBilan_textview);
 
         retourMenuFab = (FloatingActionButton) findViewById(R.id.activityFicheBilan_fab);
         retourMenuFab.setOnClickListener(new View.OnClickListener() {
@@ -72,40 +78,107 @@ public class MainMenuActivity extends AppCompatActivity {
         });
     }
 
+    //Fonctions action
     public void actionRetourMenu(View view) {
         setContentView(R.layout.activity_main_menu);
     }
 
     public void actionMainCourante(View view) {
-        activityMainCouranteTextView.setText("Action Main Courante !");
+        //Désactivé car utilisé précédemment en tant que texte random à modifier pour des tests.
+        //activityMainCouranteTextView.setText("Action Main Courante !");
     }
 
     public void actionFicheBilan(View view) {
-        activityFicheBilanTextView.setText("Action Fiche Bilan !");
+        //Désactivé car utilisé précédemment en tant que texte random à modifier pour des tests.
+        //activityFicheBilanTextView.setText("Action Fiche Bilan !");
     }
 
-    @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        // Inflate the menu; this adds items to the action bar if it is present.
-        getMenuInflater().inflate(R.menu.menu_main_menu, menu);
-        return true;
+    //Datepicker Factorisé (+Timepicker enchainé)
+    public void showDateTimePickerDialog(View v) {
+        FragmentManager fm = getFragmentManager();
+        DatePickerFragment datePickerFragment = new DatePickerFragment();
+        datePickerFragment.plugParameters((String)v.getTag(), v.getId());
+        datePickerFragment.show(fm, "datePicker");
     }
 
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        // Handle action bar item clicks here. The action bar will
-        // automatically handle clicks on the Home/Up button, so long
-        // as you specify a parent activity in AndroidManifest.xml.
-        int id = item.getItemId();
+    public static class DatePickerFragment extends DialogFragment
+            implements DatePickerDialog.OnDateSetListener {
+        EditText returnText;
+        String tag;
+        int id;
 
-        //noinspection SimplifiableIfStatement
-        if (id == R.id.action_settings) {
-            return true;
+        public void plugParameters(String t, int i) {
+            this.tag = t;
+            this.id = i;
         }
 
-        return super.onOptionsItemSelected(item);
+        @Override
+        public Dialog onCreateDialog(Bundle savedInstanceState) {
+            final Calendar c = Calendar.getInstance();
+            int annee = c.get(Calendar.YEAR);
+            int mois = c.get(Calendar.MONTH);
+            int jour = c.get(Calendar.DAY_OF_MONTH);
+
+            return new DatePickerDialog(getActivity(), this, annee, mois, jour);
+        }
+
+        public void onDateSet(DatePicker view, int annee, int mois, int jour) {
+            returnText = (EditText) getActivity().findViewById(id);
+            returnText.setText(
+                    new StringBuilder()
+                            .append(jour).append("/")
+                            .append(mois + 1).append("/")
+                            .append(annee).append(" ")
+            );
+
+            FragmentManager fm = getFragmentManager();
+            TimePickerFragment timePickerFragment = new TimePickerFragment();
+            timePickerFragment.plugParameters(tag, id);
+            timePickerFragment.show(fm, "timePicker");
+        }
     }
 
+    //Timepicker factorisé
+    public void showTimePickerDialog(View v) {
+        FragmentManager fm = getFragmentManager();
+        TimePickerFragment timePickerFragment = new TimePickerFragment();
+        timePickerFragment.plugParameters((String)v.getTag(), v.getId());
+        timePickerFragment.show(fm, "timePicker");
+    }
+
+    public static class TimePickerFragment extends DialogFragment
+            implements TimePickerDialog.OnTimeSetListener {
+        EditText returnText;
+        String tag;
+        int id;
+
+        public void plugParameters(String t, int i) {
+            this.tag = t;
+            this.id = i;
+        }
+
+        @Override
+        public Dialog onCreateDialog(Bundle savedInstanceState) {
+            final Calendar c = Calendar.getInstance();
+            int heure = c.get(Calendar.HOUR_OF_DAY);
+            int minute = c.get(Calendar.MINUTE);
+
+            return new TimePickerDialog(getActivity(), this, heure, minute, DateFormat.is24HourFormat(getActivity()));
+        }
+
+        public void onTimeSet(TimePicker view, int heure, int minute) {
+            returnText = (EditText) getActivity().findViewById(id);
+            returnText.append(
+                    new StringBuilder()
+                            .append(heure).append(":")
+                            .append(minute).append("")
+            );
+        }
+    }
+
+//TODO : Jeter la suite si on est sur que la factorisation est OK.
+/*
+    //Début du bordel des date pickers
     public void showDateTimeDebutPickerDialog(View v) {
         FragmentManager fm = getFragmentManager();
         DialogFragment datePickerDebutFragment = new DatePickerDebutFragment();
@@ -278,5 +351,5 @@ public class MainMenuActivity extends AppCompatActivity {
         FragmentManager fm = getFragmentManager();
         DialogFragment timePickerFinPosteFragment = new TimePickerFinPosteFragment();
         timePickerFinPosteFragment.show(fm, "timePicker");
-    }
+    }*/
 }

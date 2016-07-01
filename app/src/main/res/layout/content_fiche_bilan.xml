@@ -13,21 +13,35 @@
     tools:showIn="@layout/activity_fiche_bilan"
     tools:context="i4a.epsi.gestiondps.MainMenuActivity"
     android:weightSum="1"
-    android:orientation="vertical">
+    android:orientation="vertical"
+    android:background="@color/colorPrimaryBackground">
 
     <TextView
-        android:id="@+id/activityFicheBilan_textview"
-        android:text="CECI EST LA FICHE BILAN"
-        android:layout_width="match_parent"
+        android:id="@+id/ficheBilan_textview1"
+        android:text="GESTION DPS"
+        android:layout_width="fill_parent"
         android:layout_height="wrap_content"
-        android:textAlignment="center"/>
+        android:gravity="center"
+        android:textStyle="bold"
+        android:textSize="25dp"
+        android:textIsSelectable="false"
+        android:textColor="@color/colorAccent" />
+
+    <TextView
+        android:id="@+id/ficheBilanTitre_textview2"
+        android:text="FICHE BILAN"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:textSize="20dp"
+        android:textIsSelectable="false"
+        android:layout_marginBottom="10dp" />
 
     <Button
         android:id="@+id/activityFicheBilan_button"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="20dp"
-        android:layout_marginLeft="20dp"
-        android:text="Action Fiche Bilan"
-        android:onClick="actionFicheBilan"/>
+        android:text="Action Fiche Bilan (inactif)"
+        android:background="@color/colorPrimaryButton" />
 </LinearLayout>
