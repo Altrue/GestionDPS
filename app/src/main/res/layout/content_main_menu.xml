@@ -24,8 +24,8 @@
         android:layout_height="wrap_content"
         android:gravity="center"
         android:textStyle="bold"
-        android:textSize="25dp"
-        android:textIsSelectable="false"
+        android:textSize="35dp"
+        android:textIsSelectable="true"
         android:textColor="@color/colorAccent" />
 
     <TextView
@@ -44,7 +44,10 @@
         android:layout_marginTop="20dp"
         android:text="Fiche Poste"
         android:onClick="displayFichePoste"
-        android:background="@color/colorPrimaryButton" />
+        android:layout_weight="0.33"
+        android:textSize="25dp"
+        android:background="#172f3b"
+        android:textColor="@color/colorChargerText" />
 
     <Button
         android:id="@+id/mainMenuMainCourante_button"
@@ -53,7 +56,10 @@
         android:layout_marginTop="20dp"
         android:text="Main Courante"
         android:onClick="displayMainCourante"
-        android:background="@color/colorPrimaryButton" />
+        android:layout_weight="0.33"
+        android:textSize="25dp"
+        android:background="#172f3b"
+        android:textColor="@color/colorChargerText" />
 
     <Button
         android:id="@+id/mainMenuFicheBilan_button"
@@ -62,5 +68,8 @@
         android:layout_marginTop="20dp"
         android:text="Fiche Bilan"
         android:onClick="displayFicheBilan"
-        android:background="@color/colorPrimaryButton" />
+        android:layout_weight="0.33"
+        android:textSize="25dp"
+        android:background="#2b2b2b"
+        android:textColor="#727272" />
 </LinearLayout>

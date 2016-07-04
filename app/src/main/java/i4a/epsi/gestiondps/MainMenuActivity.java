@@ -72,6 +72,7 @@ public class MainMenuActivity extends AppCompatActivity {
         wantsReturn = false;
     }
 
+    //RIP
     public void displayFicheBilan(View view) {
         setContentView(R.layout.activity_fiche_bilan);
         //Désactivé car utilisé précédemment en tant que texte random à modifier pour des tests.
