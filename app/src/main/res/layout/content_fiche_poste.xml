@@ -55,7 +55,7 @@
             android:paddingBottom="10dp">
 
             <Button
-                android:id="@+id/activityFicheBilan_button"
+                android:id="@+id/activityFichePoste_buttonSave"
                 android:layout_height="wrap_content"
                 android:text="Sauvegarder"
                 android:background="@color/colorSauvegarderBackground"
@@ -66,7 +66,7 @@
                 android:layout_marginRight="5dp" />
 
             <Button
-                android:id="@+id/activityFicheBilan_button2"
+                android:id="@+id/activityFichePoste_buttonLoad"
                 android:layout_height="wrap_content"
                 android:text="Charger"
                 android:background="@color/colorChargerBackground"
@@ -191,7 +191,7 @@
                 android:id="@+id/activityFichePoste_heureOuverture_textView"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Heure d'ouverture du poste :"
+                android:text="Ouverture du poste :"
                 android:textSize="10pt">
             </TextView>
 
@@ -199,7 +199,7 @@
                 android:id="@+id/activityFichePoste_heureOuverture_editText"
                 android:tag="activityFichePoste_heureOuverture_editText"
                 android:layout_height="wrap_content"
-                android:onClick="showTimePickerDialog"
+                android:onClick="showDateTimePickerDialog"
                 android:focusable="false"
                 android:layout_width="fill_parent"
                 android:theme="@style/AppTheme.PopupOverlay">
@@ -209,14 +209,14 @@
                 android:id="@+id/activityFichePoste_heureFermeture_textView"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Heure de fermeture du poste :"
+                android:text="Fermeture du poste :"
                 android:textSize="10pt">
             </TextView>
             <EditText
                 android:id="@+id/activityFichePoste_heureFermeture_editText"
                 android:tag="activityFichePoste_heureFermeture_editText"
                 android:layout_height="wrap_content"
-                android:onClick="showTimePickerDialog"
+                android:onClick="showDateTimePickerDialog"
                 android:focusable="false"
                 android:layout_width="fill_parent"
                 android:theme="@style/AppTheme.PopupOverlay">

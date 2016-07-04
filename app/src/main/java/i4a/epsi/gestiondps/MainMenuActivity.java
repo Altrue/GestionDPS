@@ -16,6 +16,8 @@ import android.widget.DatePicker;
 import android.widget.EditText;
 
 import java.util.Calendar;
+import java.util.Timer;
+import java.util.TimerTask;
 import java.util.Vector;
 
 import android.widget.TextView;
@@ -28,6 +30,7 @@ public class MainMenuActivity extends AppCompatActivity {
     //private TextView activityMainCouranteTextView;
 
     private FloatingActionButton retourMenuFab;
+    private boolean wantsReturn = false;
     private Vector<DialogFragment> dialogFragments = new Vector<DialogFragment>(); // Pas utilisé pour le moment
 
     @Override
@@ -48,6 +51,8 @@ public class MainMenuActivity extends AppCompatActivity {
                 actionRetourMenu(view);
             }
         });
+        retourMenuFab.setImageResource(android.R.drawable.ic_menu_revert);
+        wantsReturn = false;
     }
 
     public void displayMainCourante(View view) {
@@ -62,6 +67,8 @@ public class MainMenuActivity extends AppCompatActivity {
                 actionRetourMenu(view);
             }
         });
+        retourMenuFab.setImageResource(android.R.drawable.ic_menu_revert);
+        wantsReturn = false;
     }
 
     public void displayFicheBilan(View view) {
@@ -76,11 +83,29 @@ public class MainMenuActivity extends AppCompatActivity {
                 actionRetourMenu(view);
             }
         });
+        retourMenuFab.setImageResource(android.R.drawable.ic_menu_revert);
+        wantsReturn = false;
+    }
+
+    public void setReturnFalse() {
+        wantsReturn = false;
+        retourMenuFab.setImageResource(android.R.drawable.ic_menu_revert);
     }
 
     //Fonctions action
     public void actionRetourMenu(View view) {
-        setContentView(R.layout.activity_main_menu);
+        if (wantsReturn == false) {
+            wantsReturn = true;
+            retourMenuFab.setImageResource(android.R.drawable.ic_menu_help);
+            new Timer().schedule(new TimerTask() {
+                public void run() {
+                    setReturnFalse();
+                }
+            },3000); // Annulation tentatiev de retour après 3 sec
+        }
+        else {
+            setContentView(R.layout.activity_main_menu);
+        }
     }
 
     public void actionMainCourante(View view) {

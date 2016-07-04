@@ -37,13 +37,35 @@
         android:textIsSelectable="false"
         android:layout_marginBottom="10dp" />
 
-    <Button
-        android:id="@+id/activityMainCourante_button"
-        android:layout_width="match_parent"
+    <LinearLayout
+        android:layout_width="fill_parent"
+        android:orientation="horizontal"
         android:layout_height="wrap_content"
-        android:layout_marginTop="20dp"
-        android:text="Action Main Courante (inactif)"
-        android:background="@color/colorPrimaryButton" />
+        android:paddingBottom="10dp">
+
+        <Button
+            android:id="@+id/mainCourante_buttonSave"
+            android:layout_height="wrap_content"
+            android:text="Sauvegarder"
+            android:background="@color/colorSauvegarderBackground"
+            android:layout_width="fill_parent"
+            android:textColor="@color/colorSauvegarderText"
+            android:textSize="18dp"
+            android:layout_weight="1"
+            android:layout_marginRight="5dp" />
+
+        <Button
+            android:id="@+id/mainCourante_buttonLoad"
+            android:layout_height="wrap_content"
+            android:text="Charger"
+            android:background="@color/colorChargerBackground"
+            android:layout_width="fill_parent"
+            android:textColor="@color/colorChargerText"
+            android:textSize="18dp"
+            android:layout_weight="1"
+            android:layout_marginLeft="5dp" />
+
+    </LinearLayout>
 
     <TextView
         android:id="@+id/activityMainCourante_heureEntree_textView"

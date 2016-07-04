@@ -20,6 +20,7 @@
         android:tint="#ffffff"
         android:cropToPadding="false"
         android:theme="@style/Base.V7.Theme.AppCompat.Light.Dialog"
-        android:onClick="actionRetourMenu" />
+        android:onClick="actionRetourMenu"
+        app:backgroundTint="@color/colorAccent" />
 
 </android.support.design.widget.CoordinatorLayout>
