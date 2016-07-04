@@ -148,7 +148,7 @@ public class FichePoste implements Serializable {
 
     @Override
     public String toString() {
-        return "Photo{" +
+        return "FichePoste{" +
                 "id=" + id +
                 ", nom=" + nom +
                 ", dateDebut='" + dateDebut + '\'' +

@@ -5,8 +5,10 @@ import android.app.Dialog;
 import android.app.DialogFragment;
 import android.app.FragmentManager;
 import android.app.TimePickerDialog;
+import android.content.DialogInterface;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.text.format.DateFormat;
 import android.view.Menu;
@@ -34,6 +36,7 @@ public class MainMenuActivity extends AppCompatActivity {
     //private TextView activityMainCouranteTextView;
 
     public Timer cancelReturn;
+    public int id = -1;
     private FloatingActionButton retourMenuFab;
     private boolean wantsReturn = false;
     private Vector<DialogFragment> dialogFragments = new Vector<DialogFragment>(); // Pas utilisé pour le moment
@@ -72,6 +75,23 @@ public class MainMenuActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 actionFichePosteSauvegarder(view);
+            }
+        });
+
+        Button loadButton = (Button) findViewById(R.id.activityFichePoste_buttonLoad);
+        Button loadButtonBottom = (Button) findViewById(R.id.activityFichePoste_buttonLoadBottom);
+
+        loadButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                actionFichePosteCharger(view);
+            }
+        });
+
+        loadButtonBottom.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                actionFichePosteCharger(view);
             }
         });
     }
@@ -151,6 +171,8 @@ public class MainMenuActivity extends AppCompatActivity {
         Spinner dimentionnement = (Spinner) findViewById(R.id.activityFichePoste_dimentionnement_spinner);
 
         FichePoste fichePoste = new FichePoste();
+
+        fichePoste.setId(id); // -1 = Pas une édition de fiche existante.
         fichePoste.setNom(nom.getText().toString());
         fichePoste.setDateDebut(dateDebut.getText().toString());
         fichePoste.setDateFin(dateFin.getText().toString());
@@ -166,6 +188,81 @@ public class MainMenuActivity extends AppCompatActivity {
         GestionDpsBDD bdd = new GestionDpsBDD(getApplicationContext());
         bdd.insertFichePoste(fichePoste);
     }
+
+    public void actionFichePosteCharger(View view) {
+        AlertDialog.Builder builderSingle = new AlertDialog.Builder(MainMenuActivity.this);
+        builderSingle.setIcon(android.R.drawable.ic_dialog_info);
+        builderSingle.setTitle("Chargement de Fiche Poste :");
+
+        final ArrayAdapter<String> arrayAdapter = new ArrayAdapter<String>(
+                MainMenuActivity.this,
+                android.R.layout.select_dialog_singlechoice);
+
+        GestionDpsBDD bdd = new GestionDpsBDD(this);
+        for (FichePoste fiche : bdd.getAllFichesPoste()) {
+            arrayAdapter.add("(" + fiche.getId() + ") " + fiche.getNom());
+        }
+
+        builderSingle.setNegativeButton(
+                "cancel",
+                new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        dialog.dismiss();
+                    }
+                });
+
+        builderSingle.setAdapter(
+                arrayAdapter,
+                new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        String preParse = arrayAdapter.getItem(which);
+                        String id = preParse.substring(1, preParse.indexOf(")"));
+
+                        EditText nom = (EditText) findViewById(R.id.activityFichePoste_nomDispositif_editText);
+                        EditText dateDebut = (EditText) findViewById(R.id.activityFichePoste_heureDebutManif_editText);
+                        EditText dateFin = (EditText) findViewById(R.id.activityFichePoste_heureFinManif_editText);
+                        EditText lieu = (EditText) findViewById(R.id.activityFichePoste_lieu_editText);
+                        EditText nature = (EditText) findViewById(R.id.activityFichePoste_nature_editText);
+                        EditText effectif = (EditText) findViewById(R.id.activityFichePoste_effectif_editText);
+                        EditText nbSecouriste = (EditText) findViewById(R.id.activityFichePoste_nbSecouristes_editText);
+                        EditText dateOuverture = (EditText) findViewById(R.id.activityFichePoste_heureOuverture_editText);
+                        EditText dateFermeture = (EditText) findViewById(R.id.activityFichePoste_heureFermeture_editText);
+                        EditText remarques = (EditText) findViewById(R.id.activityFichePoste_remarques_editText);
+                        Spinner dimentionnement = (Spinner) findViewById(R.id.activityFichePoste_dimentionnement_spinner);
+
+                        GestionDpsBDD bdd = new GestionDpsBDD(MainMenuActivity.this);
+                        FichePoste fichePoste = bdd.getOneFichePosteById(Integer.parseInt(id));
+
+                        MainMenuActivity.this.id = Integer.valueOf(id);
+                        nom.setText(fichePoste.getNom());
+                        dateDebut.setText(fichePoste.getDateDebut());
+                        dateFin.setText(fichePoste.getDateFin());
+                        lieu.setText(fichePoste.getLieu());
+                        nature.setText(fichePoste.getNature());
+                        effectif.setText(String.valueOf(fichePoste.getEffectif()));
+                        nbSecouriste.setText(String.valueOf(fichePoste.getNbSecouriste()));
+                        dateOuverture.setText(fichePoste.getDateOuverture());
+                        dateFermeture.setText(fichePoste.getDateFermeture());
+                        remarques.setText(fichePoste.getRemarques());
+
+                        int spinnerIndex = 0;
+                        int i = 0;
+                        String[] spinnerStrings = getResources().getStringArray(R.array.spinnerDimentionnementItems);
+                        for (String s : spinnerStrings) {
+                            if (fichePoste.getDimentionnement().equals(s)) {
+                                spinnerIndex = i;
+                            }
+                            i++;
+                        }
+                        dimentionnement.setSelection(spinnerIndex);
+                    }
+                });
+        builderSingle.show();
+    }
+
+
 
     public void actionMainCourante(View view) {
         //Désactivé car utilisé précédemment en tant que texte random à modifier pour des tests.
@@ -259,181 +356,4 @@ public class MainMenuActivity extends AppCompatActivity {
             );
         }
     }
-
-//TODO : Jeter la suite si on est sur que la factorisation est OK.
-/*
-    //Début du bordel des date pickers
-    public void showDateTimeDebutPickerDialog(View v) {
-        FragmentManager fm = getFragmentManager();
-        DialogFragment datePickerDebutFragment = new DatePickerDebutFragment();
-        datePickerDebutFragment.show(fm, "datePicker");
-    }
-
-    public static class DatePickerDebutFragment extends DialogFragment
-            implements DatePickerDialog.OnDateSetListener {
-        EditText editHeureDebutManif;
-
-        @Override
-        public Dialog onCreateDialog(Bundle savedInstanceState) {
-            final Calendar c = Calendar.getInstance();
-            int annee = c.get(Calendar.YEAR);
-            int mois = c.get(Calendar.MONTH);
-            int jour = c.get(Calendar.DAY_OF_MONTH);
-
-            return new DatePickerDialog(getActivity(), this, annee, mois, jour);
-        }
-
-        public void onDateSet(DatePicker view, int annee, int mois, int jour) {
-            editHeureDebutManif = (EditText) getActivity().findViewById(R.id.activityFichePoste_heureDebutManif_editText);
-            editHeureDebutManif.setText(
-                    new StringBuilder()
-                            .append(jour).append("/")
-                            .append(mois + 1).append("/")
-                            .append(annee).append(" ")
-            );
-
-            FragmentManager fm = getFragmentManager();
-            DialogFragment timePickerDebutFragment = new TimePickerDebutFragment();
-            timePickerDebutFragment.show(fm, "timePicker");
-        }
-    }
-
-    public static class TimePickerDebutFragment extends DialogFragment
-            implements TimePickerDialog.OnTimeSetListener {
-        EditText editHeureDebutManif;
-
-        @Override
-        public Dialog onCreateDialog(Bundle savedInstanceState) {
-            final Calendar c = Calendar.getInstance();
-            int heure = c.get(Calendar.HOUR_OF_DAY);
-            int minute = c.get(Calendar.MINUTE);
-
-            return new TimePickerDialog(getActivity(), this, heure, minute, DateFormat.is24HourFormat(getActivity()));
-        }
-
-        public void onTimeSet(TimePicker view, int heure, int minute) {
-            editHeureDebutManif = (EditText) getActivity().findViewById(R.id.activityFichePoste_heureDebutManif_editText);
-            editHeureDebutManif.append(
-                    new StringBuilder()
-                            .append(heure).append(":")
-                            .append(minute).append("")
-            );
-        }
-    }
-
-    public void showDateTimeFinPickerDialog(View v) {
-        FragmentManager fm = getFragmentManager();
-        DialogFragment datePickerFinFragment = new DatePickerFinFragment();
-        datePickerFinFragment.show(fm, "datePicker");
-    }
-
-    public static class DatePickerFinFragment extends DialogFragment
-            implements DatePickerDialog.OnDateSetListener {
-        EditText editHeureFinManif;
-
-        @Override
-        public Dialog onCreateDialog(Bundle savedInstanceState) {
-            final Calendar c = Calendar.getInstance();
-            int annee = c.get(Calendar.YEAR);
-            int mois = c.get(Calendar.MONTH);
-            int jour = c.get(Calendar.DAY_OF_MONTH);
-
-            return new DatePickerDialog(getActivity(), this, annee, mois, jour);
-        }
-
-        public void onDateSet(DatePicker view, int annee, int mois, int jour) {
-            editHeureFinManif = (EditText) getActivity().findViewById(R.id.activityFichePoste_heureFinManif_editText);
-            editHeureFinManif.setText(
-                    new StringBuilder()
-                            .append(jour).append("/")
-                            .append(mois + 1).append("/")
-                            .append(annee).append(" ")
-            );
-
-            FragmentManager fm = getFragmentManager();
-            DialogFragment timePickerFinFragment = new TimePickerFinFragment();
-            timePickerFinFragment.show(fm, "timePicker");
-        }
-    }
-
-    public static class TimePickerFinFragment extends DialogFragment
-            implements TimePickerDialog.OnTimeSetListener {
-        EditText editHeureFinManif;
-
-        @Override
-        public Dialog onCreateDialog(Bundle savedInstanceState) {
-            final Calendar c = Calendar.getInstance();
-            int heure = c.get(Calendar.HOUR_OF_DAY);
-            int minute = c.get(Calendar.MINUTE);
-
-            return new TimePickerDialog(getActivity(), this, heure, minute, DateFormat.is24HourFormat(getActivity()));
-        }
-
-        public void onTimeSet(TimePicker view, int heure, int minute) {
-            editHeureFinManif = (EditText) getActivity().findViewById(R.id.activityFichePoste_heureFinManif_editText);
-            editHeureFinManif.append(
-                    new StringBuilder()
-                            .append(heure).append(":")
-                            .append(minute).append("")
-            );
-        }
-    }
-
-    public static class TimePickerDebutPosteFragment extends DialogFragment
-            implements TimePickerDialog.OnTimeSetListener {
-        EditText editHeureDebutPoste;
-
-        @Override
-        public Dialog onCreateDialog(Bundle savedInstanceState) {
-            final Calendar c = Calendar.getInstance();
-            int heure = c.get(Calendar.HOUR_OF_DAY);
-            int minute = c.get(Calendar.MINUTE);
-
-            return new TimePickerDialog(getActivity(), this, heure, minute, DateFormat.is24HourFormat(getActivity()));
-        }
-
-        public void onTimeSet(TimePicker view, int heure, int minute) {
-            editHeureDebutPoste = (EditText) getActivity().findViewById(R.id.activityFichePoste_heureOuverture_editText);
-            editHeureDebutPoste.append(
-                    new StringBuilder()
-                            .append(heure).append(":")
-                            .append(minute).append("")
-            );
-        }
-    }
-
-    public void showTimeDebutPostePickerDialog(View v) {
-        FragmentManager fm = getFragmentManager();
-        DialogFragment timePickerDebutPosteFragment = new TimePickerDebutPosteFragment();
-        timePickerDebutPosteFragment.show(fm, "timePicker");
-    }
-
-    public static class TimePickerFinPosteFragment extends DialogFragment
-            implements TimePickerDialog.OnTimeSetListener {
-        EditText editHeureFinPoste;
-
-        @Override
-        public Dialog onCreateDialog(Bundle savedInstanceState) {
-            final Calendar c = Calendar.getInstance();
-            int heure = c.get(Calendar.HOUR_OF_DAY);
-            int minute = c.get(Calendar.MINUTE);
-
-            return new TimePickerDialog(getActivity(), this, heure, minute, DateFormat.is24HourFormat(getActivity()));
-        }
-
-        public void onTimeSet(TimePicker view, int heure, int minute) {
-            editHeureFinPoste = (EditText) getActivity().findViewById(R.id.activityFichePoste_heureFermeture_editText);
-            editHeureFinPoste.append(
-                    new StringBuilder()
-                            .append(heure).append(":")
-                            .append(minute).append("")
-            );
-        }
-    }
-
-    public void showTimeFinPostePickerDialog(View v) {
-        FragmentManager fm = getFragmentManager();
-        DialogFragment timePickerFinPosteFragment = new TimePickerFinPosteFragment();
-        timePickerFinPosteFragment.show(fm, "timePicker");
-    }*/
 }

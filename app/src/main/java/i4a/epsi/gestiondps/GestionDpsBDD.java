@@ -86,19 +86,38 @@ public class GestionDpsBDD {
 
         ContentValues values = new ContentValues();
 
-        values.put(COL_NOM, fichePoste.getNom());
-        values.put(COL_DATE_DEBUT, fichePoste.getDateDebut());
-        values.put(COL_DATE_FIN, fichePoste.getDateFin());
-        values.put(COL_LIEU, fichePoste.getLieu());
-        values.put(COL_NATURE, fichePoste.getNature());
-        values.put(COL_EFFECTIF, fichePoste.getEffectif());
-        values.put(COL_NB_SECOURISTE, fichePoste.getNbSecouriste());
-        values.put(COL_DATE_OUVERTURE, fichePoste.getDateOuverture());
-        values.put(COL_DATE_FERMETURE, fichePoste.getDateFermeture());
-        values.put(COL_REMARQUES, fichePoste.getRemarques());
-        values.put(COL_DIMENTIONNEMENT, fichePoste.getDimentionnement());
+        if (fichePoste.getId() == -1) {
+            values.put(COL_NOM, fichePoste.getNom());
+            values.put(COL_DATE_DEBUT, fichePoste.getDateDebut());
+            values.put(COL_DATE_FIN, fichePoste.getDateFin());
+            values.put(COL_LIEU, fichePoste.getLieu());
+            values.put(COL_NATURE, fichePoste.getNature());
+            values.put(COL_EFFECTIF, fichePoste.getEffectif());
+            values.put(COL_NB_SECOURISTE, fichePoste.getNbSecouriste());
+            values.put(COL_DATE_OUVERTURE, fichePoste.getDateOuverture());
+            values.put(COL_DATE_FERMETURE, fichePoste.getDateFermeture());
+            values.put(COL_REMARQUES, fichePoste.getRemarques());
+            values.put(COL_DIMENTIONNEMENT, fichePoste.getDimentionnement());
 
-        bdd.insert(TABLE_FICHE_POSTE, null, values);
+            bdd.insert(TABLE_FICHE_POSTE, null, values);
+        }
+        else {
+            values.put(COL_ID, fichePoste.getId());
+            values.put(COL_NOM, fichePoste.getNom());
+            values.put(COL_DATE_DEBUT, fichePoste.getDateDebut());
+            values.put(COL_DATE_FIN, fichePoste.getDateFin());
+            values.put(COL_LIEU, fichePoste.getLieu());
+            values.put(COL_NATURE, fichePoste.getNature());
+            values.put(COL_EFFECTIF, fichePoste.getEffectif());
+            values.put(COL_NB_SECOURISTE, fichePoste.getNbSecouriste());
+            values.put(COL_DATE_OUVERTURE, fichePoste.getDateOuverture());
+            values.put(COL_DATE_FERMETURE, fichePoste.getDateFermeture());
+            values.put(COL_REMARQUES, fichePoste.getRemarques());
+            values.put(COL_DIMENTIONNEMENT, fichePoste.getDimentionnement());
+
+            bdd.update(TABLE_FICHE_POSTE, values, COL_ID + "=" + fichePoste.getId(), null);
+        }
+
 
         close();
     }
@@ -133,7 +152,7 @@ public class GestionDpsBDD {
 
         bdd = fichePosteSQLite.getReadableDatabase();
 
-        String query = "SELECT * FROM " + TABLE_FICHE_POSTE + "WHERE id = " + id;
+        String query = "SELECT * FROM " + TABLE_FICHE_POSTE + " WHERE id = " + id;
         Cursor c = bdd.rawQuery(query, null);
         FichePoste fichePoste = new FichePoste();
 
