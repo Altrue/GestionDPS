@@ -16,199 +16,242 @@
     android:orientation="vertical"
     android:background="@color/colorPrimaryBackground">
 
-    <TextView
-        android:id="@+id/mainCourante_textview1"
-        android:text="GESTION DPS"
+    <ScrollView
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        android:id="@+id/ScrollView_mainCourante"
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
-        android:gravity="center"
-        android:textStyle="bold"
-        android:textSize="25dp"
-        android:textIsSelectable="false"
-        android:textColor="@color/colorAccent" />
+        android:scrollbars="vertical">
 
-    <TextView
-        android:id="@+id/mainCouranteTitre_textview2"
-        android:text="MAIN COURANTE"
-        android:layout_width="fill_parent"
-        android:layout_height="wrap_content"
-        android:gravity="center"
-        android:textSize="20dp"
-        android:textIsSelectable="false"
-        android:layout_marginBottom="10dp" />
-
-    <LinearLayout
-        android:layout_width="fill_parent"
-        android:orientation="horizontal"
-        android:layout_height="wrap_content"
-        android:paddingBottom="10dp">
-
-        <Button
-            android:id="@+id/mainCourante_buttonSave"
-            android:layout_height="wrap_content"
-            android:text="Sauvegarder"
-            android:background="@color/colorSauvegarderBackground"
+        <LinearLayout
             android:layout_width="fill_parent"
-            android:textColor="@color/colorSauvegarderText"
-            android:textSize="18dp"
-            android:layout_weight="1"
-            android:layout_marginRight="5dp" />
+            android:orientation="vertical"
+            android:layout_height="wrap_content">
 
-        <Button
-            android:id="@+id/mainCourante_buttonLoad"
-            android:layout_height="wrap_content"
-            android:text="Charger"
-            android:background="@color/colorChargerBackground"
-            android:layout_width="fill_parent"
-            android:textColor="@color/colorChargerText"
-            android:textSize="18dp"
-            android:layout_weight="1"
-            android:layout_marginLeft="5dp" />
+            <TextView
+                android:id="@+id/mainCourante_textview1"
+                android:text="GESTION DPS"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:textStyle="bold"
+                android:textSize="25dp"
+                android:textIsSelectable="false"
+                android:textColor="@color/colorAccent" />
 
-    </LinearLayout>
+            <TextView
+                android:id="@+id/mainCouranteTitre_textview2"
+                android:text="MAIN COURANTE"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:textSize="20dp"
+                android:textIsSelectable="false"
+                android:layout_marginBottom="10dp" />
 
-    <TextView
-        android:id="@+id/activityMainCourante_heureEntree_textView"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Heure d'entrée :"
-        android:textSize="10pt">
-    </TextView>
+            <LinearLayout
+                android:layout_width="fill_parent"
+                android:orientation="horizontal"
+                android:layout_height="wrap_content"
+                android:paddingBottom="10dp">
 
-    <EditText
-        android:id="@+id/activityMainCourante_heureEntree_editText"
-        android:tag="activityMainCourante_heureEntree_editText"
-        android:layout_height="wrap_content"
-        android:layout_width="fill_parent"
-        android:onClick="showTimePickerDialog"
-        android:focusable="false"
-        android:theme="@style/AppTheme.PopupOverlay">
-    </EditText>
+                <Button
+                    android:id="@+id/mainCourante_buttonSave"
+                    android:layout_height="wrap_content"
+                    android:text="Sauvegarder"
+                    android:background="@color/colorSauvegarderBackground"
+                    android:layout_width="fill_parent"
+                    android:textColor="@color/colorSauvegarderText"
+                    android:textSize="18dp"
+                    android:layout_weight="1"
+                    android:layout_marginRight="5dp" />
 
-    <TextView
-        android:id="@+id/activityMainCourante_heureSortie_textView"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Heure de sortie :"
-        android:textSize="10pt">
-    </TextView>
-    <EditText
-        android:id="@+id/activityMainCourante_heureSortie_editText"
-        android:tag="activityMainCourante_heureSortie_editText"
-        android:layout_height="wrap_content"
-        android:layout_width="fill_parent"
-        android:onClick="showTimePickerDialog"
-        android:focusable="false"
-        android:theme="@style/AppTheme.PopupOverlay">
-    </EditText>
+                <Button
+                    android:id="@+id/mainCourante_buttonLoad"
+                    android:layout_height="wrap_content"
+                    android:text="Charger"
+                    android:background="@color/colorChargerBackground"
+                    android:layout_width="fill_parent"
+                    android:textColor="@color/colorChargerText"
+                    android:textSize="18dp"
+                    android:layout_weight="1"
+                    android:layout_marginLeft="5dp" />
 
-    <TextView
-        android:id="@+id/activityMainCourante_prenom_textView"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Prénom :"
-        android:textSize="10pt">
-    </TextView>
-    <EditText
-        android:id="@+id/activityMainCourante_prenom_editText"
-        android:layout_height="wrap_content"
-        android:inputType="textCapWords"
-        android:layout_width="fill_parent"
-        android:theme="@style/AppTheme.PopupOverlay">
-    </EditText>
+            </LinearLayout>
 
-    <TextView
-        android:id="@+id/activityMainCourante_nom_textView"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Nom :"
-        android:textSize="10pt">
-    </TextView>
-    <EditText
-        android:id="@+id/activityMainCourante_nom_editText"
-        android:layout_height="wrap_content"
-        android:inputType="textCapCharacters"
-        android:layout_width="fill_parent"
-        android:theme="@style/AppTheme.PopupOverlay">
-    </EditText>
+            <TextView
+                android:id="@+id/activityMainCourante_heureEntree_textView"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Heure d'entrée :"
+                android:textSize="10pt">
+            </TextView>
 
-    <!-- TODO : Sexe picker -->
-    <TextView
-        android:id="@+id/activityMainCourante_sexePicker_textView"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Sexe :"
-        android:textSize="10pt">
-    </TextView>
-    <EditText
-        android:id="@+id/activityMainCourante_sexePicker_editText"
-        android:layout_height="wrap_content"
-        android:inputType="textCapSentences"
-        android:layout_width="fill_parent"
-        android:theme="@style/AppTheme.PopupOverlay">
-    </EditText>
+            <EditText
+                android:id="@+id/activityMainCourante_heureEntree_editText"
+                android:tag="activityMainCourante_heureEntree_editText"
+                android:layout_height="wrap_content"
+                android:layout_width="fill_parent"
+                android:onClick="showTimePickerDialog"
+                android:focusable="false"
+                android:theme="@style/AppTheme.PopupOverlay">
+            </EditText>
 
-    <!-- Fin todo -->
+            <TextView
+                android:id="@+id/activityMainCourante_heureSortie_textView"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Heure de sortie :"
+                android:textSize="10pt">
+            </TextView>
+            <EditText
+                android:id="@+id/activityMainCourante_heureSortie_editText"
+                android:tag="activityMainCourante_heureSortie_editText"
+                android:layout_height="wrap_content"
+                android:layout_width="fill_parent"
+                android:onClick="showTimePickerDialog"
+                android:focusable="false"
+                android:theme="@style/AppTheme.PopupOverlay">
+            </EditText>
 
-    <TextView
-        android:id="@+id/activityMainCourante_age_textView"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Âge :"
-        android:textSize="10pt">
-    </TextView>
-    <EditText
-        android:id="@+id/activityMainCourante_age_editText"
-        android:layout_height="wrap_content"
-        android:inputType="number"
-        android:layout_width="fill_parent"
-        android:theme="@style/AppTheme.PopupOverlay">
-    </EditText>
+            <TextView
+                android:id="@+id/activityMainCourante_prenom_textView"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Prénom :"
+                android:textSize="10pt">
+            </TextView>
+            <EditText
+                android:id="@+id/activityMainCourante_prenom_editText"
+                android:layout_height="wrap_content"
+                android:inputType="textCapWords"
+                android:layout_width="fill_parent"
+                android:theme="@style/AppTheme.PopupOverlay">
+            </EditText>
 
-    <TextView
-        android:id="@+id/activityMainCourante_motif_textView"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Motif :"
-        android:textSize="10pt">
-    </TextView>
-    <EditText
-        android:id="@+id/activityMainCourante_motif_editText"
-        android:layout_height="wrap_content"
-        android:inputType="textCapSentences"
-        android:layout_width="fill_parent"
-        android:theme="@style/AppTheme.PopupOverlay">
-    </EditText>
+            <TextView
+                android:id="@+id/activityMainCourante_nom_textView"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Nom :"
+                android:textSize="10pt">
+            </TextView>
+            <EditText
+                android:id="@+id/activityMainCourante_nom_editText"
+                android:layout_height="wrap_content"
+                android:inputType="textCapCharacters"
+                android:layout_width="fill_parent"
+                android:theme="@style/AppTheme.PopupOverlay">
+            </EditText>
 
-    <TextView
-        android:id="@+id/activityMainCourante_soins_textView"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Soins :"
-        android:textSize="10pt">
-    </TextView>
-    <EditText
-        android:id="@+id/activityMainCourante_soins_editText"
-        android:layout_height="wrap_content"
-        android:inputType="textCapSentences|textMultiLine"
-        android:layout_width="fill_parent"
-        android:theme="@style/AppTheme.PopupOverlay">
-    </EditText>
+            <!-- TODO : Sexe picker -->
+            <TextView
+                android:id="@+id/activityMainCourante_sexePicker_textView"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Sexe :"
+                android:textSize="10pt">
+            </TextView>
+            <EditText
+                android:id="@+id/activityMainCourante_sexePicker_editText"
+                android:layout_height="wrap_content"
+                android:inputType="textCapSentences"
+                android:layout_width="fill_parent"
+                android:theme="@style/AppTheme.PopupOverlay">
+            </EditText>
 
-    <TextView
-        android:id="@+id/activityMainCourante_remarques_textView"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Remarques :"
-        android:textSize="10pt">
-    </TextView>
-    <EditText
-        android:id="@+id/activityMainCourante_remarques_editText"
-        android:layout_height="wrap_content"
-        android:inputType="textCapSentences|textMultiLine"
-        android:layout_width="fill_parent"
-        android:theme="@style/AppTheme.PopupOverlay">
-    </EditText>
+            <!-- Fin todo -->
 
+            <TextView
+                android:id="@+id/activityMainCourante_age_textView"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Âge :"
+                android:textSize="10pt">
+            </TextView>
+            <EditText
+                android:id="@+id/activityMainCourante_age_editText"
+                android:layout_height="wrap_content"
+                android:inputType="number"
+                android:layout_width="fill_parent"
+                android:theme="@style/AppTheme.PopupOverlay">
+            </EditText>
+
+            <TextView
+                android:id="@+id/activityMainCourante_motif_textView"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Motif :"
+                android:textSize="10pt">
+            </TextView>
+            <EditText
+                android:id="@+id/activityMainCourante_motif_editText"
+                android:layout_height="wrap_content"
+                android:inputType="textCapSentences"
+                android:layout_width="fill_parent"
+                android:theme="@style/AppTheme.PopupOverlay">
+            </EditText>
+
+            <TextView
+                android:id="@+id/activityMainCourante_soins_textView"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Soins :"
+                android:textSize="10pt">
+            </TextView>
+            <EditText
+                android:id="@+id/activityMainCourante_soins_editText"
+                android:layout_height="wrap_content"
+                android:inputType="textCapSentences|textMultiLine"
+                android:layout_width="fill_parent"
+                android:theme="@style/AppTheme.PopupOverlay">
+            </EditText>
+
+            <TextView
+                android:id="@+id/activityMainCourante_remarques_textView"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Remarques :"
+                android:textSize="10pt">
+            </TextView>
+            <EditText
+                android:id="@+id/activityMainCourante_remarques_editText"
+                android:layout_height="wrap_content"
+                android:inputType="textCapSentences|textMultiLine"
+                android:layout_width="fill_parent"
+                android:theme="@style/AppTheme.PopupOverlay">
+            </EditText>
+
+            <LinearLayout
+                android:layout_width="fill_parent"
+                android:orientation="horizontal"
+                android:layout_height="wrap_content"
+                android:paddingBottom="10dp">
+
+                <Button
+                    android:id="@+id/mainCourante_buttonSaveBottom"
+                    android:layout_height="wrap_content"
+                    android:text="Sauvegarder"
+                    android:background="@color/colorSauvegarderBackground"
+                    android:layout_width="fill_parent"
+                    android:textColor="@color/colorSauvegarderText"
+                    android:textSize="18dp"
+                    android:layout_weight="1"
+                    android:layout_marginRight="5dp" />
+
+                <Button
+                    android:id="@+id/mainCourante_buttonLoadBottom"
+                    android:layout_height="wrap_content"
+                    android:text="Charger"
+                    android:background="@color/colorChargerBackground"
+                    android:layout_width="fill_parent"
+                    android:textColor="@color/colorChargerText"
+                    android:textSize="18dp"
+                    android:layout_weight="1"
+                    android:layout_marginLeft="5dp" />
+
+            </LinearLayout>
+        </LinearLayout>
+    </ScrollView>
 
 </LinearLayout>

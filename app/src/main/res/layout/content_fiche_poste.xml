@@ -18,7 +18,7 @@
 
     <ScrollView
         xmlns:android="http://schemas.android.com/apk/res/android"
-        android:id="@+id/ScrollView01"
+        android:id="@+id/ScrollView_fichePoste"
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
         android:scrollbars="vertical">
@@ -236,6 +236,36 @@
                 android:layout_width="fill_parent"
                 android:theme="@style/AppTheme.PopupOverlay">
             </EditText>
+
+            <LinearLayout
+                android:layout_width="fill_parent"
+                android:orientation="horizontal"
+                android:layout_height="wrap_content"
+                android:paddingBottom="10dp">
+
+                <Button
+                    android:id="@+id/activityFichePoste_buttonSaveBottom"
+                    android:layout_height="wrap_content"
+                    android:text="Sauvegarder"
+                    android:background="@color/colorSauvegarderBackground"
+                    android:layout_width="fill_parent"
+                    android:textColor="@color/colorSauvegarderText"
+                    android:textSize="18dp"
+                    android:layout_weight="1"
+                    android:layout_marginRight="5dp" />
+
+                <Button
+                    android:id="@+id/activityFichePoste_buttonLoadBottom"
+                    android:layout_height="wrap_content"
+                    android:text="Charger"
+                    android:background="@color/colorChargerBackground"
+                    android:layout_width="fill_parent"
+                    android:textColor="@color/colorChargerText"
+                    android:textSize="18dp"
+                    android:layout_weight="1"
+                    android:layout_marginLeft="5dp" />
+
+            </LinearLayout>
 
         </LinearLayout>
     </ScrollView>
