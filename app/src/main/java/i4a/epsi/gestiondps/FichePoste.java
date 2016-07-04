@@ -1,7 +1,6 @@
 package i4a.epsi.gestiondps;
 
 import java.io.Serializable;
-import java.util.Date;
 
 /**
  * Class FichePoste
@@ -9,33 +8,33 @@ import java.util.Date;
 public class FichePoste implements Serializable {
 
     private int id;
-    private int num;
-    private Date dateDebut;
-    private Date dateFin;
+    private String nom;
+    private String dateDebut;
+    private String dateFin;
     private String lieu;
     private String nature;
     private int effectif;
     private int nbSecouriste;
-    private Date dateOuverture;
-    private Date dateFermeture;
+    private String dateOuverture;
+    private String dateFermeture;
     private String remarques;
-    private Dimentionnement dimentionnement;
+    private String dimentionnement;
 
     public FichePoste(
             int id,
-            int num,
-            Date dateDebut,
-            Date dateFin,
+            String nom,
+            String dateDebut,
+            String dateFin,
             String lieu,
             String nature,
             int effectif,
             int nbSecouriste,
-            Date dateOuverture,
-            Date dateFermeture,
+            String dateOuverture,
+            String dateFermeture,
             String remarques,
-            Dimentionnement dimentionnement) {
+            String dimentionnement) {
         this.id = id;
-        this.num = num;
+        this.nom = nom;
         this.dateDebut = dateDebut;
         this.dateFin = dateFin;
         this.lieu = lieu;
@@ -59,27 +58,27 @@ public class FichePoste implements Serializable {
         this.id = id;
     }
 
-    public int getNum() {
-        return num;
+    public String getNom() {
+        return nom;
     }
 
-    public void setNum(int num) {
-        this.num = num;
+    public void setNom(String nom) {
+        this.nom = nom;
     }
 
-    public Date getDateDebut() {
+    public String getDateDebut() {
         return dateDebut;
     }
 
-    public void setDateDebut(Date dateDebut) {
+    public void setDateDebut(String dateDebut) {
         this.dateDebut = dateDebut;
     }
 
-    public Date getDateFin() {
+    public String getDateFin() {
         return dateFin;
     }
 
-    public void setDateFin(Date dateFin) {
+    public void setDateFin(String dateFin) {
         this.dateFin = dateFin;
     }
 
@@ -115,19 +114,19 @@ public class FichePoste implements Serializable {
         this.nbSecouriste = nbSecouriste;
     }
 
-    public Date getDateOuverture() {
+    public String getDateOuverture() {
         return dateOuverture;
     }
 
-    public void setDateOuverture(Date dateOuverture) {
+    public void setDateOuverture(String dateOuverture) {
         this.dateOuverture = dateOuverture;
     }
 
-    public Date getDateFermeture() {
+    public String getDateFermeture() {
         return dateFermeture;
     }
 
-    public void setDateFermeture(Date dateFermeture) {
+    public void setDateFermeture(String dateFermeture) {
         this.dateFermeture = dateFermeture;
     }
 
@@ -139,11 +138,11 @@ public class FichePoste implements Serializable {
         this.remarques = remarques;
     }
 
-    public Dimentionnement getDimentionnement() {
+    public String getDimentionnement() {
         return dimentionnement;
     }
 
-    public void setDimentionnement(Dimentionnement dimentionnement) {
+    public void setDimentionnement(String dimentionnement) {
         this.dimentionnement = dimentionnement;
     }
 
@@ -151,7 +150,7 @@ public class FichePoste implements Serializable {
     public String toString() {
         return "Photo{" +
                 "id=" + id +
-                ", num=" + num +
+                ", nom=" + nom +
                 ", dateDebut='" + dateDebut + '\'' +
                 ", dateFin=" + dateFin +
                 ", lieu='" + lieu + '\'' +
@@ -161,7 +160,7 @@ public class FichePoste implements Serializable {
                 ", dateOuverture=" + dateOuverture +
                 ", dateFermeture=" + dateFermeture +
                 ", remarques='" + remarques + '\'' +
-                ", dimentionnement=" + dimentionnement +
+                ", dimentionnement='" + dimentionnement + '\'' +
                 '}';
     }
 }

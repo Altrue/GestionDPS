@@ -12,14 +12,18 @@ import android.text.format.DateFormat;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.ArrayAdapter;
+import android.widget.Button;
 import android.widget.DatePicker;
 import android.widget.EditText;
 
 import java.util.Calendar;
+import java.util.Date;
 import java.util.Timer;
 import java.util.TimerTask;
 import java.util.Vector;
 
+import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.TimePicker;
 
@@ -38,7 +42,6 @@ public class MainMenuActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main_menu);
-
     }
 
     // Fonctions display
@@ -54,6 +57,23 @@ public class MainMenuActivity extends AppCompatActivity {
         });
         retourMenuFab.setImageResource(android.R.drawable.ic_menu_revert);
         wantsReturn = false;
+
+        Button saveButton = (Button) findViewById(R.id.activityFichePoste_buttonSave);
+        Button saveButtonBottom = (Button) findViewById(R.id.activityFichePoste_buttonSaveBottom);
+
+        saveButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                actionFichePosteSauvegarder(view);
+            }
+        });
+
+        saveButtonBottom.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                actionFichePosteSauvegarder(view);
+            }
+        });
     }
 
     public void displayMainCourante(View view) {
@@ -115,6 +135,36 @@ public class MainMenuActivity extends AppCompatActivity {
             cancelReturn.cancel(); // Annulation de l'annulation de la tentative de retour
             setContentView(R.layout.activity_main_menu);
         }
+    }
+
+    public void actionFichePosteSauvegarder(View view) {
+        EditText nom = (EditText) findViewById(R.id.activityFichePoste_nomDispositif_editText);
+        EditText dateDebut = (EditText) findViewById(R.id.activityFichePoste_heureDebutManif_editText);
+        EditText dateFin = (EditText) findViewById(R.id.activityFichePoste_heureFinManif_editText);
+        EditText lieu = (EditText) findViewById(R.id.activityFichePoste_lieu_editText);
+        EditText nature = (EditText) findViewById(R.id.activityFichePoste_nature_editText);
+        EditText effectif = (EditText) findViewById(R.id.activityFichePoste_effectif_editText);
+        EditText nbSecouriste = (EditText) findViewById(R.id.activityFichePoste_nbSecouristes_editText);
+        EditText dateOuverture = (EditText) findViewById(R.id.activityFichePoste_heureOuverture_editText);
+        EditText dateFermeture = (EditText) findViewById(R.id.activityFichePoste_heureFermeture_editText);
+        EditText remarques = (EditText) findViewById(R.id.activityFichePoste_remarques_editText);
+        Spinner dimentionnement = (Spinner) findViewById(R.id.activityFichePoste_dimentionnement_spinner);
+
+        FichePoste fichePoste = new FichePoste();
+        fichePoste.setNom(nom.getText().toString());
+        fichePoste.setDateDebut(dateDebut.getText().toString());
+        fichePoste.setDateFin(dateFin.getText().toString());
+        fichePoste.setLieu(lieu.getText().toString());
+        fichePoste.setNature(nature.getText().toString());
+        fichePoste.setEffectif(Integer.parseInt(effectif.getText().toString()));
+        fichePoste.setNbSecouriste(Integer.parseInt(nbSecouriste.getText().toString()));
+        fichePoste.setDateOuverture(dateOuverture.getText().toString());
+        fichePoste.setDateFermeture(dateFermeture.getText().toString());
+        fichePoste.setRemarques(remarques.getText().toString());
+        fichePoste.setDimentionnement(dimentionnement.getSelectedItem().toString());
+
+        GestionDpsBDD bdd = new GestionDpsBDD(getApplicationContext());
+        bdd.insertFichePoste(fichePoste);
     }
 
     public void actionMainCourante(View view) {

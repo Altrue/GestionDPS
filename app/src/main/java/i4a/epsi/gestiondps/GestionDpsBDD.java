@@ -5,11 +5,8 @@ import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 
-import java.text.SimpleDateFormat;
-import java.util.Date;
-import java.util.LinkedList;
 import java.util.List;
-import java.util.Locale;
+import java.util.LinkedList;
 
 /**
  * Class GestionDpsBDD
@@ -22,8 +19,8 @@ public class GestionDpsBDD {
     private static final String TABLE_FICHE_POSTE = "table_fiche_poste";
     private static final String COL_ID = "id";
     private static final int NUM_COL_ID = 0;
-    private static final String COL_NUM = "num";
-    private static final int NUM_COL_NUM = 1;
+    private static final String COL_NOM = "nom";
+    private static final int NUM_COL_NOM = 1;
     private static final String COL_DATE_DEBUT = "date_debut";
     private static final int NUM_COL_DATE_DEBUT = 2;
     private static final String COL_DATE_FIN = "date_fin";
@@ -45,13 +42,9 @@ public class GestionDpsBDD {
     private static final String COL_DIMENTIONNEMENT = "dimentionnement";
     private static final int NUM_COL_DIMENTIONNEMENT = 11;
 
-    private static final String TABLE_DIMENTIONNEMENT = "table_dimentionnement";
-    private static final String COL_LIBELLE = "libelle";
-    private static final int NUM_COL_LIBELLE = 1;
-
     private static final String[] COLUMNS_FICHE_POSTE = {
             COL_ID,
-            COL_NUM,
+            COL_NOM,
             COL_DATE_DEBUT,
             COL_DATE_FIN,
             COL_LIEU,
@@ -63,29 +56,21 @@ public class GestionDpsBDD {
             COL_REMARQUES,
             COL_DIMENTIONNEMENT};
 
-    private static final String[] COLUMNS_DIMENTIONNEMENT = {
-            COL_ID,
-            COL_LIBELLE};
-
     private SQLiteDatabase bdd;
     private FichePosteSQLite fichePosteSQLite;
-    private DimentionnementSQLite dimentionnementSQLite;
     private Context context;
 
     public GestionDpsBDD(Context context){
         fichePosteSQLite = new FichePosteSQLite(context, NOM_BDD, null, VERSION_BDD);
-        dimentionnementSQLite = new DimentionnementSQLite(context, NOM_BDD, null, VERSION_BDD);
         this.context = context;
     }
 
     private void openWritable(){
         bdd = fichePosteSQLite.getWritableDatabase();
-        bdd = dimentionnementSQLite.getWritableDatabase();
     }
 
     private void openReadable(){
         bdd = fichePosteSQLite.getReadableDatabase();
-        bdd = dimentionnementSQLite.getReadableDatabase();
     }
 
     private void close(){
@@ -101,17 +86,17 @@ public class GestionDpsBDD {
 
         ContentValues values = new ContentValues();
 
-        values.put(COL_NUM, fichePoste.getNum());
-        values.put(COL_DATE_DEBUT, fichePoste.getDateDebut().toString());
-        values.put(COL_DATE_FIN, fichePoste.getDateFin().toString());
+        values.put(COL_NOM, fichePoste.getNom());
+        values.put(COL_DATE_DEBUT, fichePoste.getDateDebut());
+        values.put(COL_DATE_FIN, fichePoste.getDateFin());
         values.put(COL_LIEU, fichePoste.getLieu());
         values.put(COL_NATURE, fichePoste.getNature());
         values.put(COL_EFFECTIF, fichePoste.getEffectif());
         values.put(COL_NB_SECOURISTE, fichePoste.getNbSecouriste());
-        values.put(COL_DATE_OUVERTURE, fichePoste.getDateOuverture().toString());
-        values.put(COL_DATE_FERMETURE, fichePoste.getDateFermeture().toString());
+        values.put(COL_DATE_OUVERTURE, fichePoste.getDateOuverture());
+        values.put(COL_DATE_FERMETURE, fichePoste.getDateFermeture());
         values.put(COL_REMARQUES, fichePoste.getRemarques());
-        values.put(COL_DIMENTIONNEMENT, fichePoste.getDimentionnement().getId());
+        values.put(COL_DIMENTIONNEMENT, fichePoste.getDimentionnement());
 
         bdd.insert(TABLE_FICHE_POSTE, null, values);
 
@@ -143,23 +128,6 @@ public class GestionDpsBDD {
         return fichesPoste;
     }
 
-    public Dimentionnement getOneDimentionnementById(int id) {
-        openReadable();
-
-        bdd = fichePosteSQLite.getReadableDatabase();
-
-        String query = "SELECT * FROM " + TABLE_DIMENTIONNEMENT + "WHERE id = " + id;
-        Cursor c = bdd.rawQuery(query, null);
-        Dimentionnement dimentionnement = new Dimentionnement();
-
-        if (c.moveToFirst()) {
-            dimentionnement = cursorToDimentionnement(c);
-        }
-
-        close();
-        return dimentionnement;
-    }
-
     public FichePoste getOneFichePosteById(int id) {
         openReadable();
 
@@ -183,46 +151,20 @@ public class GestionDpsBDD {
      * @return FichePoste
      */
     private FichePoste cursorToFichePoste(Cursor c) {
-        SimpleDateFormat sdf = new SimpleDateFormat("YYYY-MM-DD HH:MM:SS", Locale.getDefault());
-        Date dateDebut = new Date();
-        Date dateFin = new Date();
-        Date dateOuverture = new Date();
-        Date dateFermeture = new Date();
-
-        try {
-            dateDebut = sdf.parse(c.getString(NUM_COL_DATE_DEBUT));
-            dateFin = sdf.parse(c.getString(NUM_COL_DATE_FIN));
-            dateOuverture = sdf.parse(c.getString(NUM_COL_DATE_OUVERTURE));
-            dateFermeture = sdf.parse(c.getString(NUM_COL_DATE_FERMETURE));
-        } catch (java.text.ParseException e) {
-            e.printStackTrace();
-        }
 
         return new FichePoste(
                 c.getInt(NUM_COL_ID),
-                c.getInt(NUM_COL_NUM),
-                dateDebut,
-                dateFin,
+                c.getString(NUM_COL_NOM),
+                c.getString(NUM_COL_DATE_DEBUT),
+                c.getString(NUM_COL_DATE_FIN),
                 c.getString(NUM_COL_LIEU),
                 c.getString(NUM_COL_NATURE),
                 c.getInt(NUM_COL_EFFECTIF),
                 c.getInt(NUM_COL_NB_SECOURISTE),
-                dateOuverture,
-                dateFermeture,
+                c.getString(NUM_COL_DATE_OUVERTURE),
+                c.getString(NUM_COL_DATE_FERMETURE),
                 c.getString(NUM_COL_REMARQUES),
-                getOneDimentionnementById(c.getInt(NUM_COL_DIMENTIONNEMENT))
-        );
-    }
-
-    /**
-     * Transforms a cursor row to a Dimentionnement object
-     *
-     * @return Dimentionnement
-     */
-    private Dimentionnement cursorToDimentionnement(Cursor c) {
-        return new Dimentionnement(
-                c.getInt(NUM_COL_ID),
-                c.getString(NUM_COL_LIBELLE)
+                c.getString(NUM_COL_DIMENTIONNEMENT)
         );
     }
 }

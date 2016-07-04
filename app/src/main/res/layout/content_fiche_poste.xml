@@ -226,7 +226,7 @@
                 android:id="@+id/activityFichePoste_remarques_textView"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Remarques:"
+                android:text="Remarques :"
                 android:textSize="10pt">
             </TextView>
             <EditText
@@ -236,6 +236,19 @@
                 android:layout_width="fill_parent"
                 android:theme="@style/AppTheme.PopupOverlay">
             </EditText>
+
+            <TextView
+                android:id="@+id/activityFichePoste_dimentionnement_textView"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Dimentionnement :"
+                android:textSize="10pt">
+            </TextView>
+            <Spinner
+                android:id="@+id/activityFichePoste_dimentionnement_spinner"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:entries="@array/spinnerDimentionnementItems"/>
 
             <LinearLayout
                 android:layout_width="fill_parent"

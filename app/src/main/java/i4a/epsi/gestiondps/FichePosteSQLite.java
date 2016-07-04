@@ -12,7 +12,7 @@ public class FichePosteSQLite extends SQLiteOpenHelper {
 
     private static final String TABLE_FICHE_POSTE = "table_fiche_poste";
     private static final String COL_ID = "id";
-    private static final String COL_NUM = "num";
+    private static final String COL_NOM = "nom";
     private static final String COL_DATE_DEBUT = "date_debut";
     private static final String COL_DATE_FIN = "date_fin";
     private static final String COL_LIEU = "lieu";
@@ -25,12 +25,12 @@ public class FichePosteSQLite extends SQLiteOpenHelper {
     private static final String COL_DIMENTIONNEMENT = "dimentionnement";
 
     private static final String CREATE_BDD = "CREATE TABLE " + TABLE_FICHE_POSTE + " ("
-            + COL_ID + " INTEGER PRIMARY KEY AUTOINCREMENT, " + COL_NUM + " INTEGER NOT NULL, "
-            + COL_DATE_DEBUT + " DATETIME NOT NULL, " + COL_DATE_FIN + " DATETIME NOT NULL, "
+            + COL_ID + " INTEGER PRIMARY KEY AUTOINCREMENT, " + COL_NOM + " INTEGER NOT NULL, "
+            + COL_DATE_DEBUT + " VARCHAR(50) NOT NULL, " + COL_DATE_FIN + " VARCHAR(50) NOT NULL, "
             + COL_LIEU + " VARCHAR(50) NOT NULL, " + COL_NATURE + " VARCHAR(100) NOT NULL, "
             + COL_EFFECTIF + " INT NOT NULL, " + COL_NB_SECOURISTE + " INT NOT NULL, "
-            + COL_DATE_OUVERTURE + " DATE NOT NULL, " + COL_DATE_FERMETURE + " INT NOT NULL, "
-            + COL_REMARQUES + " TEXT NOT NULL, " + COL_DIMENTIONNEMENT + " INT NOT NULL);";
+            + COL_DATE_OUVERTURE + " VARCHAR(50) NOT NULL, " + COL_DATE_FERMETURE + " INT NOT NULL, "
+            + COL_REMARQUES + " TEXT NOT NULL, " + COL_DIMENTIONNEMENT + " VARCHAR(50) NOT NULL);";
 
     public FichePosteSQLite(Context context, String name, CursorFactory factory, int version) {
         super(context, name, factory, version);
