@@ -29,6 +29,7 @@ public class MainMenuActivity extends AppCompatActivity {
     //private TextView activityFicheBilanTextView;
     //private TextView activityMainCouranteTextView;
 
+    public Timer cancelReturn;
     private FloatingActionButton retourMenuFab;
     private boolean wantsReturn = false;
     private Vector<DialogFragment> dialogFragments = new Vector<DialogFragment>(); // Pas utilisé pour le moment
@@ -97,13 +98,20 @@ public class MainMenuActivity extends AppCompatActivity {
         if (wantsReturn == false) {
             wantsReturn = true;
             retourMenuFab.setImageResource(android.R.drawable.ic_menu_help);
-            new Timer().schedule(new TimerTask() {
+            cancelReturn = new Timer();
+            cancelReturn.schedule(new TimerTask() {
                 public void run() {
-                    setReturnFalse();
+                    runOnUiThread(new Runnable() {
+                        @Override
+                        public void run() {
+                            setReturnFalse();
+                        }
+                    });
                 }
-            },3000); // Annulation tentatiev de retour après 3 sec
+            },3000); // Annulation tentative de retour après 3 sec
         }
         else {
+            cancelReturn.cancel(); // Annulation de l'annulation de la tentative de retour
             setContentView(R.layout.activity_main_menu);
         }
     }
