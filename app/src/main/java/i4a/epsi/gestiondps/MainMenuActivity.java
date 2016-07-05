@@ -597,7 +597,33 @@ public class MainMenuActivity extends AppCompatActivity {
         }
         else {
             cancelMail.cancel(); // Annulation de l'annulation de la tentative de retour
-            //TODO ICI TRISTAN
+
+            EditText heureDebut = (EditText) findViewById(R.id.activityMainCourante_heureEntree_editText);
+            EditText heureFin = (EditText) findViewById(R.id.activityMainCourante_heureSortie_editText);
+            EditText prenom = (EditText) findViewById(R.id.activityMainCourante_prenom_editText);
+            EditText nom = (EditText) findViewById(R.id.activityMainCourante_nom_editText);
+            Spinner sexe = (Spinner) findViewById(R.id.activityMainCourante_sexePicker_spinner);
+            EditText age = (EditText) findViewById(R.id.activityMainCourante_age_editText);
+            EditText motif = (EditText) findViewById(R.id.activityMainCourante_motif_editText);
+            EditText soins = (EditText) findViewById(R.id.activityMainCourante_soins_editText);
+            EditText remarques = (EditText) findViewById(R.id.activityMainCourante_remarques_editText);
+
+            String body = "Heure d'entrée : " + heureDebut.getText().toString() + "\n" +
+                    "Heure de sortie : " + heureFin.getText().toString() + "\n" +
+                    "Prénom : " + prenom.getText().toString() + "\n" +
+                    "Nom : " + nom.getText().toString() + "\n" +
+                    "Sexe : " + sexe.getSelectedItem().toString() + "\n" +
+                    "Age : " + age.getText().toString() + "\n" +
+                    "Motif : " + motif.getText().toString() + "\n" +
+                    "Soins : " + soins.getText().toString() + "\n" +
+                    "Remarques : " + remarques.getText().toString() + "\n";
+
+            Intent intent = new Intent(Intent.ACTION_SENDTO, Uri.fromParts("mailto","", null));
+            //intent.setType("text/plain");
+            intent.putExtra(Intent.EXTRA_SUBJECT, "Main courante");
+            intent.putExtra(Intent.EXTRA_TEXT, body);
+
+            startActivity(Intent.createChooser(intent, "Send Email"));
         }
     }
 }
