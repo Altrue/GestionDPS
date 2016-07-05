@@ -161,17 +161,33 @@ public class GestionDpsBDD {
 
         ContentValues values = new ContentValues();
 
-        values.put(COL_HEURE_DEBUT, mainCourante.getHeureDebut());
-        values.put(COL_HEURE_FIN, mainCourante.getHeureFin());
-        values.put(COL_PRENOM, mainCourante.getPrenom());
-        values.put(COL_NOM_MC, mainCourante.getNom());
-        values.put(COL_SEXE, mainCourante.getSexe());
-        values.put(COL_AGE, mainCourante.getAge());
-        values.put(COL_MOTIF, mainCourante.getMotif());
-        values.put(COL_SOINS, mainCourante.getSoins());
-        values.put(COL_REMARQUES_MC, mainCourante.getRemarques());
+        if (mainCourante.getId() == -1) {
+            values.put(COL_HEURE_DEBUT, mainCourante.getHeureDebut());
+            values.put(COL_HEURE_FIN, mainCourante.getHeureFin());
+            values.put(COL_PRENOM, mainCourante.getPrenom());
+            values.put(COL_NOM_MC, mainCourante.getNom());
+            values.put(COL_SEXE, mainCourante.getSexe());
+            values.put(COL_AGE, mainCourante.getAge());
+            values.put(COL_MOTIF, mainCourante.getMotif());
+            values.put(COL_SOINS, mainCourante.getSoins());
+            values.put(COL_REMARQUES_MC, mainCourante.getRemarques());
 
-        bdd.insert(TABLE_MAIN_COURANTE, null, values);
+            bdd.insert(TABLE_MAIN_COURANTE, null, values);
+        }
+        else {
+            values.put(COL_ID_MC, mainCourante.getId());
+            values.put(COL_HEURE_DEBUT, mainCourante.getHeureDebut());
+            values.put(COL_HEURE_FIN, mainCourante.getHeureFin());
+            values.put(COL_PRENOM, mainCourante.getPrenom());
+            values.put(COL_NOM_MC, mainCourante.getNom());
+            values.put(COL_SEXE, mainCourante.getSexe());
+            values.put(COL_AGE, mainCourante.getAge());
+            values.put(COL_MOTIF, mainCourante.getMotif());
+            values.put(COL_SOINS, mainCourante.getSoins());
+            values.put(COL_REMARQUES_MC, mainCourante.getRemarques());
+
+            bdd.update(TABLE_MAIN_COURANTE, values, COL_ID_MC + "=" + mainCourante.getId(), null);
+        }
 
         close();
     }

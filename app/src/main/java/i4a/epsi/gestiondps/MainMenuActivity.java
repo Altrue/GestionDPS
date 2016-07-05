@@ -40,6 +40,7 @@ public class MainMenuActivity extends AppCompatActivity {
     private FloatingActionButton retourMenuFab;
     private boolean wantsReturn = false;
     private boolean wantsMail = false;
+    private boolean inMenu = true;
     private Vector<DialogFragment> dialogFragments = new Vector<DialogFragment>(); // Pas utilisé pour le moment
 
     private Button saveButtonTop;
@@ -76,6 +77,7 @@ public class MainMenuActivity extends AppCompatActivity {
         });
         sendMailFab.setImageResource(android.R.drawable.ic_dialog_email);
         wantsMail = false;
+        inMenu = false;
         id = -1;
 
         saveButtonTop = (Button) findViewById(R.id.activityFichePoste_buttonSave);
@@ -136,6 +138,7 @@ public class MainMenuActivity extends AppCompatActivity {
         });
         sendMailFab.setImageResource(android.R.drawable.ic_dialog_email);
         wantsMail = false;
+        inMenu = false;
         id = -1;
 
         saveButtonTop = (Button) findViewById(R.id.mainCourante_buttonSave);
@@ -173,23 +176,6 @@ public class MainMenuActivity extends AppCompatActivity {
         });
     }
 
-    //RIP
-    public void displayFicheBilan(View view) {
-        setContentView(R.layout.activity_fiche_bilan);
-        //Désactivé car utilisé précédemment en tant que texte random à modifier pour des tests.
-        //activityFicheBilanTextView = (TextView)findViewById(R.id.activityFicheBilan_textview);
-
-        retourMenuFab = (FloatingActionButton) findViewById(R.id.activityFicheBilan_fab);
-        retourMenuFab.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                actionRetourMenu(view);
-            }
-        });
-        retourMenuFab.setImageResource(android.R.drawable.ic_menu_revert);
-        wantsReturn = false;
-    }
-
     public void setReturnFalse() {
         wantsReturn = false;
         retourMenuFab.setImageResource(android.R.drawable.ic_menu_revert);
@@ -219,7 +205,19 @@ public class MainMenuActivity extends AppCompatActivity {
         }
         else {
             cancelReturn.cancel(); // Annulation de l'annulation de la tentative de retour
+            inMenu = true;
             setContentView(R.layout.activity_main_menu);
+        }
+    }
+
+    @Override
+    public void onBackPressed() {
+        if (!inMenu) {
+            setContentView(R.layout.activity_main_menu);
+            inMenu = true;
+        }
+        else {
+            finish();
         }
     }
 
@@ -275,6 +273,7 @@ public class MainMenuActivity extends AppCompatActivity {
         EditText remarques = (EditText) findViewById(R.id.activityMainCourante_remarques_editText);
 
         MainCourante mainCourante = new MainCourante();
+        mainCourante.setId(id); // -1 = Pas une édition de fiche existante.
         mainCourante.setHeureDebut(heureDebut.getText().toString());
         mainCourante.setHeureFin(heureFin.getText().toString());
         mainCourante.setPrenom(prenom.getText().toString());
@@ -521,7 +520,7 @@ public class MainMenuActivity extends AppCompatActivity {
     public void actionFichePosteMail(View view) {
         if (wantsMail == false) {
             wantsMail = true;
-            retourMenuFab.setImageResource(android.R.drawable.ic_menu_help);
+            sendMailFab.setImageResource(android.R.drawable.ic_menu_help);
             cancelMail = new Timer();
             cancelMail.schedule(new TimerTask() {
                 public void run() {
@@ -543,7 +542,7 @@ public class MainMenuActivity extends AppCompatActivity {
     public void actionMainCouranteMail(View view) {
         if (wantsMail == false) {
             wantsMail = true;
-            retourMenuFab.setImageResource(android.R.drawable.ic_menu_help);
+            sendMailFab.setImageResource(android.R.drawable.ic_menu_help);
             cancelMail = new Timer();
             cancelMail.schedule(new TimerTask() {
                 public void run() {
