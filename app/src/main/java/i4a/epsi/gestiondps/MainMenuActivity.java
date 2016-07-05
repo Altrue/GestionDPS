@@ -1,5 +1,6 @@
 package i4a.epsi.gestiondps;
 
+import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.os.Handler;
@@ -535,7 +536,35 @@ public class MainMenuActivity extends AppCompatActivity {
         }
         else {
             cancelMail.cancel(); // Annulation de l'annulation de la tentative de retour
-            //TODO ICI TRISTAN
+
+            EditText nom = (EditText) findViewById(R.id.activityFichePoste_nomDispositif_editText);
+            EditText dateDebut = (EditText) findViewById(R.id.activityFichePoste_heureDebutManif_editText);
+            EditText dateFin = (EditText) findViewById(R.id.activityFichePoste_heureFinManif_editText);
+            EditText lieu = (EditText) findViewById(R.id.activityFichePoste_lieu_editText);
+            EditText nature = (EditText) findViewById(R.id.activityFichePoste_nature_editText);
+            EditText effectif = (EditText) findViewById(R.id.activityFichePoste_effectif_editText);
+            EditText nbSecouriste = (EditText) findViewById(R.id.activityFichePoste_nbSecouristes_editText);
+            EditText dateOuverture = (EditText) findViewById(R.id.activityFichePoste_heureOuverture_editText);
+            EditText dateFermeture = (EditText) findViewById(R.id.activityFichePoste_heureFermeture_editText);
+            EditText remarques = (EditText) findViewById(R.id.activityFichePoste_remarques_editText);
+            Spinner dimentionnement = (Spinner) findViewById(R.id.activityFichePoste_dimentionnement_spinner);
+
+            String body = "Nom du dispositif : " + nom.getText().toString() + "\n" +
+                    "Début de la manifestation : " + dateDebut.getText().toString() + "\n" +
+                    "Fin de la manifestation : " + dateFin.getText().toString() + "\n" +
+                    "Lieu : " + lieu.getText().toString() + "\n" +
+                    "Nature : " + nature.getText().toString() + "\n" +
+                    "Effectif : " + effectif.getText().toString() + "\n" +
+                    "Nombre de secouristes : " + nbSecouriste.getText().toString() + "\n" +
+                    "Ouverture du poste : " + dateOuverture.getText().toString() + "\n" +
+                    "Fermeture du poste : " + dateFermeture.getText().toString() + "\n" +
+                    "Remarques : " + remarques.getText().toString() + "\n" +
+                    "Dimentionnement : " + dimentionnement.getSelectedItem().toString();
+            Intent intent = new Intent(Intent.ACTION_SENDTO);
+            intent.putExtra("subject", "Fiche poste");
+            intent.putExtra("body", body);
+
+            startActivity(Intent.createChooser(intent, "Send Email"));
         }
     }
 
