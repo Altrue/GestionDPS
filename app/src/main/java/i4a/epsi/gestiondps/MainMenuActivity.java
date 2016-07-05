@@ -190,8 +190,16 @@ public class MainMenuActivity extends AppCompatActivity {
         fichePoste.setDateFin(dateFin.getText().toString());
         fichePoste.setLieu(lieu.getText().toString());
         fichePoste.setNature(nature.getText().toString());
-        fichePoste.setEffectif(Integer.parseInt(effectif.getText().toString()));
-        fichePoste.setNbSecouriste(Integer.parseInt(nbSecouriste.getText().toString()));
+        try{
+            fichePoste.setEffectif(Integer.parseInt(effectif.getText().toString()));
+        } catch (Exception $e) {
+            fichePoste.setEffectif(0);
+        }
+        try{
+            fichePoste.setNbSecouriste(Integer.parseInt(nbSecouriste.getText().toString()));
+        } catch (Exception $e) {
+            fichePoste.setNbSecouriste(0);
+        }
         fichePoste.setDateOuverture(dateOuverture.getText().toString());
         fichePoste.setDateFermeture(dateFermeture.getText().toString());
         fichePoste.setRemarques(remarques.getText().toString());
@@ -218,7 +226,11 @@ public class MainMenuActivity extends AppCompatActivity {
         mainCourante.setPrenom(prenom.getText().toString());
         mainCourante.setNom(nom.getText().toString());
         mainCourante.setSexe(sexe.getSelectedItem().toString());
-        mainCourante.setAge(Integer.parseInt(age.getText().toString()));
+        try{
+            mainCourante.setAge(Integer.parseInt(age.getText().toString()));
+        } catch (Exception $e) {
+            mainCourante.setAge(0);
+        }
         mainCourante.setMotif(motif.getText().toString());
         mainCourante.setSoins(soins.getText().toString());
         mainCourante.setRemarques(remarques.getText().toString());

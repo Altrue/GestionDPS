@@ -91,30 +91,20 @@ public class GestionDpsBDD {
             COL_REMARQUES_MC};
 
     private SQLiteDatabase bdd;
-    private FichePosteSQLite fichePosteSQLite;
-    private MainCouranteSQLite mainCouranteSQLite;
+    private GestionDpsSQLite gestionDpsSQLite;
     private Context context;
 
     public GestionDpsBDD(Context context){
-        fichePosteSQLite = new FichePosteSQLite(context, NOM_BDD, null, VERSION_BDD);
-        mainCouranteSQLite = new MainCouranteSQLite(context, NOM_BDD, null, VERSION_BDD);
+        gestionDpsSQLite = new GestionDpsSQLite(context, NOM_BDD, null, VERSION_BDD);
         this.context = context;
     }
 
-    private void openWritableFichePoste(){
-        bdd = fichePosteSQLite.getWritableDatabase();
+    private void openWritable(){
+        bdd = gestionDpsSQLite.getWritableDatabase();
     }
 
-    private void openReadableFichePoste(){
-        bdd = fichePosteSQLite.getReadableDatabase();
-    }
-
-    private void openWritableMainCourante(){
-        bdd = mainCouranteSQLite.getWritableDatabase();
-    }
-
-    private void openReadableMainCourante(){
-        bdd = mainCouranteSQLite.getReadableDatabase();
+    private void openReadable(){
+        bdd = gestionDpsSQLite.getReadableDatabase();
     }
 
     private void close(){
@@ -126,7 +116,7 @@ public class GestionDpsBDD {
     }
 
     public void insertFichePoste(FichePoste fichePoste){
-        openWritableFichePoste();
+        openWritable();
 
         ContentValues values = new ContentValues();
 
@@ -167,7 +157,7 @@ public class GestionDpsBDD {
     }
 
     public void insertMainCourante(MainCourante mainCourante){
-        openWritableMainCourante();
+        openWritable();
 
         ContentValues values = new ContentValues();
 
@@ -187,15 +177,15 @@ public class GestionDpsBDD {
     }
 
     public void removeFichePoste(FichePoste fichePoste){
-        openWritableFichePoste();
+        openWritable();
         bdd.delete(TABLE_FICHE_POSTE, COL_ID + " = " + fichePoste.getId(), null);
         close();
     }
 
     public List<FichePoste> getAllFichesPoste() {
-        openReadableFichePoste();
+        openReadable();
 
-        bdd = fichePosteSQLite.getReadableDatabase();
+        bdd = gestionDpsSQLite.getReadableDatabase();
         List<FichePoste> fichesPoste = new LinkedList<>();
 
         String query = "SELECT  * FROM " + TABLE_FICHE_POSTE;
@@ -212,9 +202,9 @@ public class GestionDpsBDD {
     }
 
     public List<MainCourante> getAllMainsCourantes() {
-        openReadableMainCourante();
+        openReadable();
 
-        bdd = mainCouranteSQLite.getReadableDatabase();
+        bdd = gestionDpsSQLite.getReadableDatabase();
         List<MainCourante> mainsCourantes = new LinkedList<>();
 
         String query = "SELECT  * FROM " + TABLE_MAIN_COURANTE;
@@ -231,9 +221,9 @@ public class GestionDpsBDD {
     }
 
     public FichePoste getOneFichePosteById(int id) {
-        openReadableFichePoste();
+        openReadable();
 
-        bdd = fichePosteSQLite.getReadableDatabase();
+        bdd = gestionDpsSQLite.getReadableDatabase();
 
         String query = "SELECT * FROM " + TABLE_FICHE_POSTE + " WHERE id = " + id;
         Cursor c = bdd.rawQuery(query, null);
@@ -248,9 +238,9 @@ public class GestionDpsBDD {
     }
 
     public MainCourante getOneMainCouranteById(int id) {
-        openReadableMainCourante();
+        openReadable();
 
-        bdd = mainCouranteSQLite.getReadableDatabase();
+        bdd = gestionDpsSQLite.getReadableDatabase();
 
         String query = "SELECT * FROM " + TABLE_FICHE_POSTE + "WHERE id = " + id;
         Cursor c = bdd.rawQuery(query, null);
