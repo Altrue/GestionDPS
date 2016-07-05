@@ -242,7 +242,7 @@ public class GestionDpsBDD {
 
         bdd = gestionDpsSQLite.getReadableDatabase();
 
-        String query = "SELECT * FROM " + TABLE_FICHE_POSTE + "WHERE id = " + id;
+        String query = "SELECT * FROM " + TABLE_MAIN_COURANTE + " WHERE id = " + id;
         Cursor c = bdd.rawQuery(query, null);
         MainCourante mainCourante = new MainCourante();
 
