@@ -8,6 +8,7 @@
     <color name="colorTopMenu">#0d3051</color>
     <color name="colorSauvegarderBackground">#20381f</color>
     <color name="colorChargerBackground">#1d262e</color>
+    <color name="colorChargerBackgroundPressed">#242f39</color>
     <color name="colorSauvegarderText">#61ef5b</color>
     <color name="colorChargerText">#60acef</color>
 </resources>

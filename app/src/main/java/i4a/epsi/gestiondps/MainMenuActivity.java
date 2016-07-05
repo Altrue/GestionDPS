@@ -1,6 +1,9 @@
 package i4a.epsi.gestiondps;
 
+import android.graphics.Color;
 import android.os.Bundle;
+import android.os.Handler;
+import android.view.MotionEvent;
 import android.view.View;
 import android.app.Dialog;
 import android.widget.Button;
@@ -36,6 +39,11 @@ public class MainMenuActivity extends AppCompatActivity {
     private boolean wantsReturn = false;
     private Vector<DialogFragment> dialogFragments = new Vector<DialogFragment>(); // Pas utilisé pour le moment
 
+    private Button saveButtonTop;
+    private Button saveButtonBottom;
+    private Button loadButtonTop;
+    private Button loadButtonBottom;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -55,11 +63,14 @@ public class MainMenuActivity extends AppCompatActivity {
         });
         retourMenuFab.setImageResource(android.R.drawable.ic_menu_revert);
         wantsReturn = false;
+        id = -1;
 
-        Button saveButton = (Button) findViewById(R.id.activityFichePoste_buttonSave);
-        Button saveButtonBottom = (Button) findViewById(R.id.activityFichePoste_buttonSaveBottom);
+        saveButtonTop = (Button) findViewById(R.id.activityFichePoste_buttonSave);
+        saveButtonBottom = (Button) findViewById(R.id.activityFichePoste_buttonSaveBottom);
+        loadButtonTop = (Button) findViewById(R.id.activityFichePoste_buttonLoad);
+        loadButtonBottom = (Button) findViewById(R.id.activityFichePoste_buttonLoadBottom);
 
-        saveButton.setOnClickListener(new View.OnClickListener() {
+        saveButtonTop.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 actionFichePosteSauvegarder(view);
@@ -73,10 +84,7 @@ public class MainMenuActivity extends AppCompatActivity {
             }
         });
 
-        Button loadButton = (Button) findViewById(R.id.activityFichePoste_buttonLoad);
-        Button loadButtonBottom = (Button) findViewById(R.id.activityFichePoste_buttonLoadBottom);
-
-        loadButton.setOnClickListener(new View.OnClickListener() {
+        loadButtonTop.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 actionFichePosteCharger(view);
@@ -105,11 +113,14 @@ public class MainMenuActivity extends AppCompatActivity {
         });
         retourMenuFab.setImageResource(android.R.drawable.ic_menu_revert);
         wantsReturn = false;
+        id = -1;
 
-        Button saveButton = (Button) findViewById(R.id.mainCourante_buttonSave);
-        Button saveButtonBottom = (Button) findViewById(R.id.mainCourante_buttonSaveBottom);
+        saveButtonTop = (Button) findViewById(R.id.mainCourante_buttonSave);
+        saveButtonBottom = (Button) findViewById(R.id.mainCourante_buttonSaveBottom);
+        loadButtonTop = (Button) findViewById(R.id.mainCourante_buttonLoad);
+        loadButtonBottom = (Button) findViewById(R.id.mainCourante_buttonLoadBottom);
 
-        saveButton.setOnClickListener(new View.OnClickListener() {
+        saveButtonTop.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 actionMainCouranteSauvegarder(view);
@@ -120,6 +131,21 @@ public class MainMenuActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 actionMainCouranteSauvegarder(view);
+            }
+        });
+
+
+        loadButtonTop.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                actionMainCouranteCharger(view);
+            }
+        });
+
+        loadButtonBottom.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                actionMainCouranteCharger(view);
             }
         });
     }
@@ -300,16 +326,73 @@ public class MainMenuActivity extends AppCompatActivity {
         builderSingle.show();
     }
 
+    public void actionMainCouranteCharger(View view) {
+        AlertDialog.Builder builderSingle = new AlertDialog.Builder(MainMenuActivity.this);
+        builderSingle.setIcon(android.R.drawable.ic_dialog_info);
+        builderSingle.setTitle("Chargement de Main Courante :");
 
+        final ArrayAdapter<String> arrayAdapter = new ArrayAdapter<String>(
+                MainMenuActivity.this,
+                android.R.layout.select_dialog_singlechoice);
 
-    public void actionMainCourante(View view) {
-        //Désactivé car utilisé précédemment en tant que texte random à modifier pour des tests.
-        //activityMainCouranteTextView.setText("Action Main Courante !");
-    }
+        GestionDpsBDD bdd = new GestionDpsBDD(this);
+        for (MainCourante mainCourante : bdd.getAllMainsCourantes()) {
+            arrayAdapter.add("(" + mainCourante.getId() + ") " + mainCourante.getNom());
+        }
 
-    public void actionFicheBilan(View view) {
-        //Désactivé car utilisé précédemment en tant que texte random à modifier pour des tests.
-        //activityFicheBilanTextView.setText("Action Fiche Bilan !");
+        builderSingle.setNegativeButton(
+                "cancel",
+                new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        dialog.dismiss();
+                    }
+                });
+
+        builderSingle.setAdapter(
+                arrayAdapter,
+                new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        String preParse = arrayAdapter.getItem(which);
+                        String id = preParse.substring(1, preParse.indexOf(")"));
+
+                        EditText heureDebut = (EditText) findViewById(R.id.activityMainCourante_heureEntree_editText);
+                        EditText heureFin = (EditText) findViewById(R.id.activityMainCourante_heureSortie_editText);
+                        EditText prenom = (EditText) findViewById(R.id.activityMainCourante_prenom_editText);
+                        EditText nom = (EditText) findViewById(R.id.activityMainCourante_nom_editText);
+                        Spinner sexe = (Spinner) findViewById(R.id.activityMainCourante_sexePicker_spinner);
+                        EditText age = (EditText) findViewById(R.id.activityMainCourante_age_editText);
+                        EditText motif = (EditText) findViewById(R.id.activityMainCourante_motif_editText);
+                        EditText soins = (EditText) findViewById(R.id.activityMainCourante_soins_editText);
+                        EditText remarques = (EditText) findViewById(R.id.activityMainCourante_remarques_editText);
+
+                        GestionDpsBDD bdd = new GestionDpsBDD(MainMenuActivity.this);
+                        MainCourante mainCourante = bdd.getOneMainCouranteById(Integer.parseInt(id));
+
+                        MainMenuActivity.this.id = Integer.valueOf(id);
+                        heureDebut.setText(mainCourante.getHeureDebut());
+                        heureFin.setText(mainCourante.getHeureFin());
+                        prenom.setText(mainCourante.getPrenom());
+                        nom.setText(mainCourante.getNom());
+                        age.setText(String.valueOf(mainCourante.getAge()));
+                        motif.setText(mainCourante.getMotif());
+                        soins.setText(mainCourante.getSoins());
+                        remarques.setText(mainCourante.getRemarques());
+
+                        int spinnerIndex = 0;
+                        int i = 0;
+                        String[] spinnerStrings = getResources().getStringArray(R.array.spinnerSexeItems);
+                        for (String s : spinnerStrings) {
+                            if (mainCourante.getSexe().equals(s)) {
+                                spinnerIndex = i;
+                            }
+                            i++;
+                        }
+                        sexe.setSelection(spinnerIndex);
+                    }
+                });
+        builderSingle.show();
     }
 
     //Datepicker Factorisé (+Timepicker enchainé)
