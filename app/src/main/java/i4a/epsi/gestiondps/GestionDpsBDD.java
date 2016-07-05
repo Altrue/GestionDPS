@@ -1,8 +1,8 @@
 package i4a.epsi.gestiondps;
 
-import android.content.ContentValues;
 import android.content.Context;
 import android.database.Cursor;
+import android.content.ContentValues;
 import android.database.sqlite.SQLiteDatabase;
 
 import java.util.List;
@@ -14,7 +14,7 @@ import java.util.LinkedList;
 public class GestionDpsBDD {
 
     private static final int VERSION_BDD = 1;
-    private static final String NOM_BDD = "photos.db";
+    private static final String NOM_BDD = "gestiondps.db";
 
     private static final String TABLE_FICHE_POSTE = "table_fiche_poste";
     private static final String COL_ID = "id";
@@ -42,6 +42,28 @@ public class GestionDpsBDD {
     private static final String COL_DIMENTIONNEMENT = "dimentionnement";
     private static final int NUM_COL_DIMENTIONNEMENT = 11;
 
+    private static final String TABLE_MAIN_COURANTE = "table_main_courante";
+    private static final String COL_ID_MC = "id";
+    private static final int NUM_COL_ID_MC = 0;
+    private static final String COL_HEURE_DEBUT = "heure_debut";
+    private static final int NUM_COL_HEURE_DEBUT = 1;
+    private static final String COL_HEURE_FIN = "heure_fin";
+    private static final int NUM_COL_HEURE_FIN = 2;
+    private static final String COL_PRENOM = "prenom";
+    private static final int NUM_COL_PRENOM = 3;
+    private static final String COL_NOM_MC = "nom";
+    private static final int NUM_COL_NOM_MC = 4;
+    private static final String COL_SEXE = "sexe";
+    private static final int NUM_COL_SEXE = 5;
+    private static final String COL_AGE = "age";
+    private static final int NUM_COL_AGE = 6;
+    private static final String COL_MOTIF = "motif";
+    private static final int NUM_COL_MOTIF = 7;
+    private static final String COL_SOINS = "soins";
+    private static final int NUM_COL_SOINS = 8;
+    private static final String COL_REMARQUES_MC = "remarques";
+    private static final int NUM_COL_REMARQUES_MC = 9;
+
     private static final String[] COLUMNS_FICHE_POSTE = {
             COL_ID,
             COL_NOM,
@@ -56,21 +78,43 @@ public class GestionDpsBDD {
             COL_REMARQUES,
             COL_DIMENTIONNEMENT};
 
+    private static final String[] COLUMNS_MAIN_COURANTE = {
+            COL_ID_MC,
+            COL_HEURE_DEBUT,
+            COL_HEURE_FIN,
+            COL_PRENOM,
+            COL_NOM_MC,
+            COL_SEXE,
+            COL_AGE,
+            COL_MOTIF,
+            COL_SOINS,
+            COL_REMARQUES_MC};
+
     private SQLiteDatabase bdd;
     private FichePosteSQLite fichePosteSQLite;
+    private MainCouranteSQLite mainCouranteSQLite;
     private Context context;
 
     public GestionDpsBDD(Context context){
         fichePosteSQLite = new FichePosteSQLite(context, NOM_BDD, null, VERSION_BDD);
+        mainCouranteSQLite = new MainCouranteSQLite(context, NOM_BDD, null, VERSION_BDD);
         this.context = context;
     }
 
-    private void openWritable(){
+    private void openWritableFichePoste(){
         bdd = fichePosteSQLite.getWritableDatabase();
     }
 
-    private void openReadable(){
+    private void openReadableFichePoste(){
         bdd = fichePosteSQLite.getReadableDatabase();
+    }
+
+    private void openWritableMainCourante(){
+        bdd = mainCouranteSQLite.getWritableDatabase();
+    }
+
+    private void openReadableMainCourante(){
+        bdd = mainCouranteSQLite.getReadableDatabase();
     }
 
     private void close(){
@@ -82,7 +126,7 @@ public class GestionDpsBDD {
     }
 
     public void insertFichePoste(FichePoste fichePoste){
-        openWritable();
+        openWritableFichePoste();
 
         ContentValues values = new ContentValues();
 
@@ -122,14 +166,34 @@ public class GestionDpsBDD {
         close();
     }
 
+    public void insertMainCourante(MainCourante mainCourante){
+        openWritableMainCourante();
+
+        ContentValues values = new ContentValues();
+
+        values.put(COL_HEURE_DEBUT, mainCourante.getHeureDebut());
+        values.put(COL_HEURE_FIN, mainCourante.getHeureFin());
+        values.put(COL_PRENOM, mainCourante.getPrenom());
+        values.put(COL_NOM_MC, mainCourante.getNom());
+        values.put(COL_SEXE, mainCourante.getSexe());
+        values.put(COL_AGE, mainCourante.getAge());
+        values.put(COL_MOTIF, mainCourante.getMotif());
+        values.put(COL_SOINS, mainCourante.getSoins());
+        values.put(COL_REMARQUES_MC, mainCourante.getRemarques());
+
+        bdd.insert(TABLE_MAIN_COURANTE, null, values);
+
+        close();
+    }
+
     public void removeFichePoste(FichePoste fichePoste){
-        openWritable();
+        openWritableFichePoste();
         bdd.delete(TABLE_FICHE_POSTE, COL_ID + " = " + fichePoste.getId(), null);
         close();
     }
 
     public List<FichePoste> getAllFichesPoste() {
-        openReadable();
+        openReadableFichePoste();
 
         bdd = fichePosteSQLite.getReadableDatabase();
         List<FichePoste> fichesPoste = new LinkedList<>();
@@ -147,8 +211,27 @@ public class GestionDpsBDD {
         return fichesPoste;
     }
 
+    public List<MainCourante> getAllMainsCourantes() {
+        openReadableMainCourante();
+
+        bdd = mainCouranteSQLite.getReadableDatabase();
+        List<MainCourante> mainsCourantes = new LinkedList<>();
+
+        String query = "SELECT  * FROM " + TABLE_MAIN_COURANTE;
+        Cursor c = bdd.rawQuery(query, null);
+
+        if (c.moveToFirst()) {
+            do {
+                mainsCourantes.add(cursorToMainCourante(c));
+            } while (c.moveToNext());
+        }
+
+        close();
+        return mainsCourantes;
+    }
+
     public FichePoste getOneFichePosteById(int id) {
-        openReadable();
+        openReadableFichePoste();
 
         bdd = fichePosteSQLite.getReadableDatabase();
 
@@ -162,6 +245,23 @@ public class GestionDpsBDD {
 
         close();
         return fichePoste;
+    }
+
+    public MainCourante getOneMainCouranteById(int id) {
+        openReadableMainCourante();
+
+        bdd = mainCouranteSQLite.getReadableDatabase();
+
+        String query = "SELECT * FROM " + TABLE_FICHE_POSTE + "WHERE id = " + id;
+        Cursor c = bdd.rawQuery(query, null);
+        MainCourante mainCourante = new MainCourante();
+
+        if (c.moveToFirst()) {
+            mainCourante = cursorToMainCourante(c);
+        }
+
+        close();
+        return mainCourante;
     }
 
     /**
@@ -184,6 +284,27 @@ public class GestionDpsBDD {
                 c.getString(NUM_COL_DATE_FERMETURE),
                 c.getString(NUM_COL_REMARQUES),
                 c.getString(NUM_COL_DIMENTIONNEMENT)
+        );
+    }
+
+    /**
+     * Transforms a cursor row to a MainCourante object
+     *
+     * @return MainCourante
+     */
+    private MainCourante cursorToMainCourante(Cursor c) {
+
+        return new MainCourante(
+                c.getInt(NUM_COL_ID_MC),
+                c.getString(NUM_COL_HEURE_DEBUT),
+                c.getString(NUM_COL_HEURE_FIN),
+                c.getString(NUM_COL_PRENOM),
+                c.getString(NUM_COL_NOM_MC),
+                c.getString(NUM_COL_SEXE),
+                c.getInt(NUM_COL_AGE),
+                c.getString(NUM_COL_MOTIF),
+                c.getString(NUM_COL_SOINS),
+                c.getString(NUM_COL_REMARQUES_MC)
         );
     }
 }

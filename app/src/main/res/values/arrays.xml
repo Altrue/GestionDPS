@@ -5,4 +5,9 @@
         <item>DPS-ME</item>
         <item>DPS-GE</item>
     </string-array>
+
+    <string-array name="spinnerSexeItems">
+        <item>Femme</item>
+        <item>Homme</item>
+    </string-array>
 </resources>

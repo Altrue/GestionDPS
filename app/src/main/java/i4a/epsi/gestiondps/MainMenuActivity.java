@@ -1,33 +1,28 @@
 package i4a.epsi.gestiondps;
 
-import android.app.DatePickerDialog;
-import android.app.Dialog;
-import android.app.DialogFragment;
-import android.app.FragmentManager;
-import android.app.TimePickerDialog;
-import android.content.DialogInterface;
 import android.os.Bundle;
-import android.support.design.widget.FloatingActionButton;
+import android.view.View;
+import android.app.Dialog;
+import android.widget.Button;
+import android.widget.Spinner;
+import android.widget.EditText;
+import android.widget.DatePicker;
+import android.widget.TimePicker;
+import android.app.DialogFragment;
+import android.widget.ArrayAdapter;
+import android.app.FragmentManager;
+import android.app.DatePickerDialog;
+import android.app.TimePickerDialog;
+import android.text.format.DateFormat;
+import android.content.DialogInterface;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
-import android.text.format.DateFormat;
-import android.view.Menu;
-import android.view.MenuItem;
-import android.view.View;
-import android.widget.ArrayAdapter;
-import android.widget.Button;
-import android.widget.DatePicker;
-import android.widget.EditText;
+import android.support.design.widget.FloatingActionButton;
 
-import java.util.Calendar;
-import java.util.Date;
 import java.util.Timer;
-import java.util.TimerTask;
 import java.util.Vector;
-
-import android.widget.Spinner;
-import android.widget.TextView;
-import android.widget.TimePicker;
+import java.util.Calendar;
+import java.util.TimerTask;
 
 public class MainMenuActivity extends AppCompatActivity {
 
@@ -110,6 +105,23 @@ public class MainMenuActivity extends AppCompatActivity {
         });
         retourMenuFab.setImageResource(android.R.drawable.ic_menu_revert);
         wantsReturn = false;
+
+        Button saveButton = (Button) findViewById(R.id.mainCourante_buttonSave);
+        Button saveButtonBottom = (Button) findViewById(R.id.mainCourante_buttonSaveBottom);
+
+        saveButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                actionMainCouranteSauvegarder(view);
+            }
+        });
+
+        saveButtonBottom.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                actionMainCouranteSauvegarder(view);
+            }
+        });
     }
 
     //RIP
@@ -187,6 +199,32 @@ public class MainMenuActivity extends AppCompatActivity {
 
         GestionDpsBDD bdd = new GestionDpsBDD(getApplicationContext());
         bdd.insertFichePoste(fichePoste);
+    }
+
+    public void actionMainCouranteSauvegarder(View view) {
+        EditText heureDebut = (EditText) findViewById(R.id.activityMainCourante_heureEntree_editText);
+        EditText heureFin = (EditText) findViewById(R.id.activityMainCourante_heureSortie_editText);
+        EditText prenom = (EditText) findViewById(R.id.activityMainCourante_prenom_editText);
+        EditText nom = (EditText) findViewById(R.id.activityMainCourante_nom_editText);
+        Spinner sexe = (Spinner) findViewById(R.id.activityMainCourante_sexePicker_spinner);
+        EditText age = (EditText) findViewById(R.id.activityMainCourante_age_editText);
+        EditText motif = (EditText) findViewById(R.id.activityMainCourante_motif_editText);
+        EditText soins = (EditText) findViewById(R.id.activityMainCourante_soins_editText);
+        EditText remarques = (EditText) findViewById(R.id.activityMainCourante_remarques_editText);
+
+        MainCourante mainCourante = new MainCourante();
+        mainCourante.setHeureDebut(heureDebut.getText().toString());
+        mainCourante.setHeureFin(heureFin.getText().toString());
+        mainCourante.setPrenom(prenom.getText().toString());
+        mainCourante.setNom(nom.getText().toString());
+        mainCourante.setSexe(sexe.getSelectedItem().toString());
+        mainCourante.setAge(Integer.parseInt(age.getText().toString()));
+        mainCourante.setMotif(motif.getText().toString());
+        mainCourante.setSoins(soins.getText().toString());
+        mainCourante.setRemarques(remarques.getText().toString());
+
+        GestionDpsBDD bdd = new GestionDpsBDD(getApplicationContext());
+        bdd.insertMainCourante(mainCourante);
     }
 
     public void actionFichePosteCharger(View view) {

@@ -144,7 +144,6 @@
                 android:theme="@style/AppTheme.PopupOverlay">
             </EditText>
 
-            <!-- TODO : Sexe picker -->
             <TextView
                 android:id="@+id/activityMainCourante_sexePicker_textView"
                 android:layout_width="wrap_content"
@@ -152,15 +151,11 @@
                 android:text="Sexe :"
                 android:textSize="10pt">
             </TextView>
-            <EditText
-                android:id="@+id/activityMainCourante_sexePicker_editText"
+            <Spinner
+                android:id="@+id/activityMainCourante_sexePicker_spinner"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:inputType="textCapSentences"
-                android:layout_width="fill_parent"
-                android:theme="@style/AppTheme.PopupOverlay">
-            </EditText>
-
-            <!-- Fin todo -->
+                android:entries="@array/spinnerSexeItems"/>
 
             <TextView
                 android:id="@+id/activityMainCourante_age_textView"
