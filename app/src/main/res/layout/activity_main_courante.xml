@@ -23,4 +23,17 @@
         android:onClick="actionRetourMenu"
         app:backgroundTint="@color/colorAccent" />
 
+    <android.support.design.widget.FloatingActionButton
+        android:id="@+id/activityMainCourante_mail"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="bottom|left"
+        android:layout_margin="@dimen/fab_margin"
+        android:src="@android:drawable/ic_dialog_email"
+        android:tint="#ffffff"
+        android:cropToPadding="false"
+        android:theme="@style/Base.V7.Theme.AppCompat.Light.Dialog"
+        android:onClick="actionMainCouranteMail"
+        app:backgroundTint="@color/colorAccent" />
+
 </android.support.design.widget.CoordinatorLayout>

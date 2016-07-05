@@ -34,9 +34,12 @@ public class MainMenuActivity extends AppCompatActivity {
     //private TextView activityMainCouranteTextView;
 
     public Timer cancelReturn;
+    public Timer cancelMail;
     public int id = -1;
+    private FloatingActionButton sendMailFab;
     private FloatingActionButton retourMenuFab;
     private boolean wantsReturn = false;
+    private boolean wantsMail = false;
     private Vector<DialogFragment> dialogFragments = new Vector<DialogFragment>(); // Pas utilisé pour le moment
 
     private Button saveButtonTop;
@@ -63,6 +66,16 @@ public class MainMenuActivity extends AppCompatActivity {
         });
         retourMenuFab.setImageResource(android.R.drawable.ic_menu_revert);
         wantsReturn = false;
+
+        sendMailFab = (FloatingActionButton) findViewById(R.id.activityFichePoste_mail);
+        sendMailFab.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                actionFichePosteMail(view);
+            }
+        });
+        sendMailFab.setImageResource(android.R.drawable.ic_dialog_email);
+        wantsMail = false;
         id = -1;
 
         saveButtonTop = (Button) findViewById(R.id.activityFichePoste_buttonSave);
@@ -113,6 +126,16 @@ public class MainMenuActivity extends AppCompatActivity {
         });
         retourMenuFab.setImageResource(android.R.drawable.ic_menu_revert);
         wantsReturn = false;
+
+        sendMailFab = (FloatingActionButton) findViewById(R.id.activityMainCourante_mail);
+        sendMailFab.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                actionMainCouranteMail(view);
+            }
+        });
+        sendMailFab.setImageResource(android.R.drawable.ic_dialog_email);
+        wantsMail = false;
         id = -1;
 
         saveButtonTop = (Button) findViewById(R.id.mainCourante_buttonSave);
@@ -170,6 +193,11 @@ public class MainMenuActivity extends AppCompatActivity {
     public void setReturnFalse() {
         wantsReturn = false;
         retourMenuFab.setImageResource(android.R.drawable.ic_menu_revert);
+    }
+
+    public void setMailFalse() {
+        wantsMail = false;
+        sendMailFab.setImageResource(android.R.drawable.ic_dialog_email);
     }
 
     //Fonctions action
@@ -487,6 +515,50 @@ public class MainMenuActivity extends AppCompatActivity {
                             .append(heure).append(":")
                             .append(minute).append("")
             );
+        }
+    }
+
+    public void actionFichePosteMail(View view) {
+        if (wantsMail == false) {
+            wantsMail = true;
+            retourMenuFab.setImageResource(android.R.drawable.ic_menu_help);
+            cancelMail = new Timer();
+            cancelMail.schedule(new TimerTask() {
+                public void run() {
+                    runOnUiThread(new Runnable() {
+                        @Override
+                        public void run() {
+                            setMailFalse();
+                        }
+                    });
+                }
+            },3000); // Annulation tentative de retour après 3 sec
+        }
+        else {
+            cancelMail.cancel(); // Annulation de l'annulation de la tentative de retour
+            //TODO ICI TRISTAN
+        }
+    }
+
+    public void actionMainCouranteMail(View view) {
+        if (wantsMail == false) {
+            wantsMail = true;
+            retourMenuFab.setImageResource(android.R.drawable.ic_menu_help);
+            cancelMail = new Timer();
+            cancelMail.schedule(new TimerTask() {
+                public void run() {
+                    runOnUiThread(new Runnable() {
+                        @Override
+                        public void run() {
+                            setMailFalse();
+                        }
+                    });
+                }
+            },3000); // Annulation tentative de retour après 3 sec
+        }
+        else {
+            cancelMail.cancel(); // Annulation de l'annulation de la tentative de retour
+            //TODO ICI TRISTAN
         }
     }
 }
