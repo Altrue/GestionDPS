@@ -2,6 +2,7 @@ package i4a.epsi.gestiondps;
 
 import android.content.Intent;
 import android.graphics.Color;
+import android.net.Uri;
 import android.os.Bundle;
 import android.os.Handler;
 import android.view.MotionEvent;
@@ -510,11 +511,20 @@ public class MainMenuActivity extends AppCompatActivity {
 
         public void onTimeSet(TimePicker view, int heure, int minute) {
             returnText = (EditText) getActivity().findViewById(id);
-            returnText.append(
-                    new StringBuilder()
-                            .append(heure).append(":")
-                            .append(minute).append("")
-            );
+            if (minute < 10) {
+                returnText.append(
+                        new StringBuilder()
+                                .append(heure).append(":")
+                                .append("0").append(minute).append("")
+                );
+            }
+            else {
+                returnText.append(
+                        new StringBuilder()
+                                .append(heure).append(":")
+                                .append(minute).append("")
+                );
+            }
         }
     }
 
@@ -560,9 +570,10 @@ public class MainMenuActivity extends AppCompatActivity {
                     "Fermeture du poste : " + dateFermeture.getText().toString() + "\n" +
                     "Remarques : " + remarques.getText().toString() + "\n" +
                     "Dimentionnement : " + dimentionnement.getSelectedItem().toString();
-            Intent intent = new Intent(Intent.ACTION_SENDTO);
-            intent.putExtra("subject", "Fiche poste");
-            intent.putExtra("body", body);
+            Intent intent = new Intent(Intent.ACTION_SENDTO, Uri.fromParts("mailto","", null));
+            //intent.setType("text/plain");
+            intent.putExtra(Intent.EXTRA_SUBJECT, "Fiche poste");
+            intent.putExtra(Intent.EXTRA_TEXT, body);
 
             startActivity(Intent.createChooser(intent, "Send Email"));
         }
