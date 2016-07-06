@@ -584,8 +584,6 @@ public class MainMenuActivity extends AppCompatActivity {
             },3000); // Annulation tentative de retour après 3 sec
         }
         else {
-            cancelMail.cancel(); // Annulation de l'annulation de la tentative de retour
-
             EditText nom = (EditText) findViewById(R.id.activityFichePoste_nomDispositif_editText);
             EditText dateDebut = (EditText) findViewById(R.id.activityFichePoste_heureDebutManif_editText);
             EditText dateFin = (EditText) findViewById(R.id.activityFichePoste_heureFinManif_editText);
@@ -635,8 +633,6 @@ public class MainMenuActivity extends AppCompatActivity {
             },3000); // Annulation tentative de retour après 3 sec
         }
         else {
-            cancelMail.cancel(); // Annulation de l'annulation de la tentative de retour
-
             EditText heureDebut = (EditText) findViewById(R.id.activityMainCourante_heureEntree_editText);
             EditText heureFin = (EditText) findViewById(R.id.activityMainCourante_heureSortie_editText);
             EditText prenom = (EditText) findViewById(R.id.activityMainCourante_prenom_editText);
