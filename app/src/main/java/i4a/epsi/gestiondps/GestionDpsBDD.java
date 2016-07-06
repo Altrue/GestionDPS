@@ -270,6 +270,40 @@ public class GestionDpsBDD {
         return mainCourante;
     }
 
+    public FichePoste getLastFichePoste() {
+        openReadable();
+
+        bdd = gestionDpsSQLite.getReadableDatabase();
+
+        String query = "SELECT * FROM " + TABLE_FICHE_POSTE + " ORDER BY " + COL_ID + " DESC LIMIT 1";
+        Cursor c = bdd.rawQuery(query, null);
+        FichePoste fichePoste = new FichePoste();
+
+        if (c.moveToFirst()) {
+            fichePoste = cursorToFichePoste(c);
+        }
+
+        close();
+        return fichePoste;
+    }
+
+    public MainCourante getLastMainCourante() {
+        openReadable();
+
+        bdd = gestionDpsSQLite.getReadableDatabase();
+
+        String query = "SELECT * FROM " + TABLE_MAIN_COURANTE + " ORDER BY " + COL_ID_MC + " DESC LIMIT 1";
+        Cursor c = bdd.rawQuery(query, null);
+        MainCourante mainCourante = new MainCourante();
+
+        if (c.moveToFirst()) {
+            mainCourante = cursorToMainCourante(c);
+        }
+
+        close();
+        return mainCourante;
+    }
+
     /**
      * Transforms a cursor row to a FichePoste object
      *

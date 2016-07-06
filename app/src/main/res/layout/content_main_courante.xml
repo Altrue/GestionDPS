@@ -155,7 +155,9 @@
                 android:id="@+id/activityMainCourante_sexePicker_spinner"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:entries="@array/spinnerSexeItems"/>
+                android:entries="@array/spinnerSexeItems"
+                android:background="@color/colorPrimaryButton"
+                android:layout_marginBottom="10dp"/>
 
             <TextView
                 android:id="@+id/activityMainCourante_age_textView"

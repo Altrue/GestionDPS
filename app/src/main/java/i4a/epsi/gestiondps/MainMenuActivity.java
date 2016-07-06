@@ -23,6 +23,7 @@ import android.content.DialogInterface;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.support.design.widget.FloatingActionButton;
+import android.widget.Toast;
 
 import java.util.Timer;
 import java.util.Vector;
@@ -236,31 +237,47 @@ public class MainMenuActivity extends AppCompatActivity {
         EditText remarques = (EditText) findViewById(R.id.activityFichePoste_remarques_editText);
         Spinner dimentionnement = (Spinner) findViewById(R.id.activityFichePoste_dimentionnement_spinner);
 
-        FichePoste fichePoste = new FichePoste();
+        if (nom.getText().length() > 0) {
+            FichePoste fichePoste = new FichePoste();
 
-        fichePoste.setId(id); // -1 = Pas une édition de fiche existante.
-        fichePoste.setNom(nom.getText().toString());
-        fichePoste.setDateDebut(dateDebut.getText().toString());
-        fichePoste.setDateFin(dateFin.getText().toString());
-        fichePoste.setLieu(lieu.getText().toString());
-        fichePoste.setNature(nature.getText().toString());
-        try{
-            fichePoste.setEffectif(Integer.parseInt(effectif.getText().toString()));
-        } catch (Exception $e) {
-            fichePoste.setEffectif(0);
-        }
-        try{
-            fichePoste.setNbSecouriste(Integer.parseInt(nbSecouriste.getText().toString()));
-        } catch (Exception $e) {
-            fichePoste.setNbSecouriste(0);
-        }
-        fichePoste.setDateOuverture(dateOuverture.getText().toString());
-        fichePoste.setDateFermeture(dateFermeture.getText().toString());
-        fichePoste.setRemarques(remarques.getText().toString());
-        fichePoste.setDimentionnement(dimentionnement.getSelectedItem().toString());
+            fichePoste.setId(id); // -1 = Pas une édition de fiche existante.
+            fichePoste.setNom(nom.getText().toString());
+            fichePoste.setDateDebut(dateDebut.getText().toString());
+            fichePoste.setDateFin(dateFin.getText().toString());
+            fichePoste.setLieu(lieu.getText().toString());
+            fichePoste.setNature(nature.getText().toString());
+            try{
+                fichePoste.setEffectif(Integer.parseInt(effectif.getText().toString()));
+            } catch (Exception $e) {
+                fichePoste.setEffectif(0);
+            }
+            try{
+                fichePoste.setNbSecouriste(Integer.parseInt(nbSecouriste.getText().toString()));
+            } catch (Exception $e) {
+                fichePoste.setNbSecouriste(0);
+            }
+            fichePoste.setDateOuverture(dateOuverture.getText().toString());
+            fichePoste.setDateFermeture(dateFermeture.getText().toString());
+            fichePoste.setRemarques(remarques.getText().toString());
+            fichePoste.setDimentionnement(dimentionnement.getSelectedItem().toString());
 
-        GestionDpsBDD bdd = new GestionDpsBDD(getApplicationContext());
-        bdd.insertFichePoste(fichePoste);
+            GestionDpsBDD bdd = new GestionDpsBDD(getApplicationContext());
+            bdd.insertFichePoste(fichePoste);
+
+            if (id > -1) {
+                Toast.makeText(MainMenuActivity.this, "Fiche poste éditée.",
+                        Toast.LENGTH_LONG).show();
+            }
+            else {
+                Toast.makeText(MainMenuActivity.this, "Fiche poste créée.",
+                        Toast.LENGTH_LONG).show();
+                id = bdd.getLastFichePoste().getId();
+            }
+        }
+        else {
+            Toast.makeText(MainMenuActivity.this, "Erreur : Veuillez remplir le nom.",
+                    Toast.LENGTH_LONG).show();
+        }
     }
 
     public void actionMainCouranteSauvegarder(View view) {
@@ -274,24 +291,40 @@ public class MainMenuActivity extends AppCompatActivity {
         EditText soins = (EditText) findViewById(R.id.activityMainCourante_soins_editText);
         EditText remarques = (EditText) findViewById(R.id.activityMainCourante_remarques_editText);
 
-        MainCourante mainCourante = new MainCourante();
-        mainCourante.setId(id); // -1 = Pas une édition de fiche existante.
-        mainCourante.setHeureDebut(heureDebut.getText().toString());
-        mainCourante.setHeureFin(heureFin.getText().toString());
-        mainCourante.setPrenom(prenom.getText().toString());
-        mainCourante.setNom(nom.getText().toString());
-        mainCourante.setSexe(sexe.getSelectedItem().toString());
-        try{
-            mainCourante.setAge(Integer.parseInt(age.getText().toString()));
-        } catch (Exception $e) {
-            mainCourante.setAge(0);
-        }
-        mainCourante.setMotif(motif.getText().toString());
-        mainCourante.setSoins(soins.getText().toString());
-        mainCourante.setRemarques(remarques.getText().toString());
+        if(nom.getText().length() > 0) {
+            MainCourante mainCourante = new MainCourante();
+            mainCourante.setId(id); // -1 = Pas une édition de fiche existante.
+            mainCourante.setHeureDebut(heureDebut.getText().toString());
+            mainCourante.setHeureFin(heureFin.getText().toString());
+            mainCourante.setPrenom(prenom.getText().toString());
+            mainCourante.setNom(nom.getText().toString());
+            mainCourante.setSexe(sexe.getSelectedItem().toString());
+            try{
+                mainCourante.setAge(Integer.parseInt(age.getText().toString()));
+            } catch (Exception $e) {
+                mainCourante.setAge(0);
+            }
+            mainCourante.setMotif(motif.getText().toString());
+            mainCourante.setSoins(soins.getText().toString());
+            mainCourante.setRemarques(remarques.getText().toString());
 
-        GestionDpsBDD bdd = new GestionDpsBDD(getApplicationContext());
-        bdd.insertMainCourante(mainCourante);
+            GestionDpsBDD bdd = new GestionDpsBDD(getApplicationContext());
+            bdd.insertMainCourante(mainCourante);
+
+            if (id > -1) {
+                Toast.makeText(MainMenuActivity.this, "Main courante éditée.",
+                        Toast.LENGTH_LONG).show();
+            }
+            else {
+                Toast.makeText(MainMenuActivity.this, "Main courante créée.",
+                        Toast.LENGTH_LONG).show();
+                id = bdd.getLastMainCourante().getId();
+            }
+        }
+        else {
+            Toast.makeText(MainMenuActivity.this, "Erreur : Veuillez remplir le nom.",
+                    Toast.LENGTH_LONG).show();
+        }
     }
 
     public void actionFichePosteCharger(View view) {
@@ -362,6 +395,9 @@ public class MainMenuActivity extends AppCompatActivity {
                             i++;
                         }
                         dimentionnement.setSelection(spinnerIndex);
+
+                        Toast.makeText(MainMenuActivity.this, "Fiche poste chargée",
+                                Toast.LENGTH_LONG).show();
                     }
                 });
         builderSingle.show();
@@ -431,6 +467,9 @@ public class MainMenuActivity extends AppCompatActivity {
                             i++;
                         }
                         sexe.setSelection(spinnerIndex);
+
+                        Toast.makeText(MainMenuActivity.this, "Main courante chargée.",
+                                Toast.LENGTH_LONG).show();
                     }
                 });
         builderSingle.show();

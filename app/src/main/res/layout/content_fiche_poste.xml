@@ -248,7 +248,9 @@
                 android:id="@+id/activityFichePoste_dimentionnement_spinner"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:entries="@array/spinnerDimentionnementItems"/>
+                android:entries="@array/spinnerDimentionnementItems"
+                android:background="@color/colorPrimaryButton"
+                android:layout_marginBottom="10dp"/>
 
             <LinearLayout
                 android:layout_width="fill_parent"
